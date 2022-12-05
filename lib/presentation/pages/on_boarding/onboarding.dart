@@ -1,45 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tasks/core/routes.dart';
+import 'package:task/app/decorations.dart';
+import 'package:task/core/routes.dart';
+import 'package:task/data/models/onBoard/onboarding_contents.dart';
+import 'package:task/presentation/pages/on_boarding/onboarding_controller.dart';
+import 'package:task/presentation/pages/on_boarding/widget/build_dots.dart';
 
-import '../../../data/models/onBoard/onboarding_contents.dart';
-
-
-
-class OnBoard extends StatefulWidget {
+class OnBoard extends StatelessWidget {
   const OnBoard({super.key});
-
-  @override
-  State<OnBoard> createState() => _OnBoardState();
-}
-
-class _OnBoardState extends State<OnBoard> {
-  PageController controller = PageController();
-  int currentIndex = 0;
-  @override
-  void initState() {
-    controller = PageController(initialPage: 0);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final myController = Get.put(OnBoardingController());
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
         body: PageView.builder(
           allowImplicitScrolling: true,
-          controller: controller,
+          controller: myController.controller.value,
           onPageChanged: (value) {
-            setState(() {
-              currentIndex = value;
-            });
+            myController.indexSetter(value);
           },
           itemCount: contents.length,
           itemBuilder: (context, index) {
@@ -47,10 +26,7 @@ class _OnBoardState extends State<OnBoard> {
               children: [
                 Flexible(
                   child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10)),
+                    decoration: constDecorationBottom10.copyWith(
                         image: DecorationImage(
                             image: AssetImage(contents[index].image),
                             fit: BoxFit.contain)),
@@ -82,7 +58,8 @@ class _OnBoardState extends State<OnBoard> {
                           ),
                         ),
                       ),
-                      buildDots(index),
+                      Obx(() => BuildDots(
+                          currentIndex: myController.currentIndex.value)),
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Container(
@@ -90,39 +67,46 @@ class _OnBoardState extends State<OnBoard> {
                             width: double.infinity,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                currentIndex == contents.length - 1
-                                    ? const SizedBox(
-                                        width: 25,
-                                      )
-                                    : TextButton(
-                                        onPressed: () =>
-                                            Get.offNamed(Routes.homeScreen),
-                                        child: const Text(
-                                          "Skip",
-                                          style: TextStyle(fontSize: 20),
-                                        ),
-                                      ),
-                                TextButton(
-                                    onPressed: () async {
-                                      if (currentIndex == contents.length - 1) {
-                                        Get.offNamed(Routes.homeScreen);
-                                      }
+                            child: Obx(() => Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    myController.currentIndex.value ==
+                                            contents.length - 1
+                                        ? const SizedBox(
+                                            width: 25,
+                                          )
+                                        : TextButton(
+                                            onPressed: () {
+                                              Get.offNamed(Routes.homeScreen);
+                                            },
+                                            child: const Text(
+                                              "Skip",
+                                              style: TextStyle(fontSize: 20),
+                                            ),
+                                          ),
+                                    TextButton(
+                                        onPressed: () async {
+                                          if (myController.currentIndex.value ==
+                                              contents.length - 1) {
+                                            Get.offNamed(Routes.homeScreen);
+                                          }
 
-                                      await controller.nextPage(
-                                          duration: const Duration(seconds: 1),
-                                          curve: Curves.easeIn);
-                                    },
-                                    child: Text(
-                                      currentIndex == contents.length - 1
-                                          ? "Continue"
-                                          : "Next",
-                                      style: const TextStyle(fontSize: 20),
-                                    )),
-                              ],
-                            )),
+                                          await myController.controller.value
+                                              .nextPage(
+                                                  duration: const Duration(
+                                                      seconds: 1),
+                                                  curve: Curves.easeIn);
+                                        },
+                                        child: Text(
+                                          myController.currentIndex.value ==
+                                                  contents.length - 1
+                                              ? "Continue"
+                                              : "Next",
+                                          style: const TextStyle(fontSize: 20),
+                                        )),
+                                  ],
+                                ))),
                       )
                     ],
                   ),
@@ -132,22 +116,6 @@ class _OnBoardState extends State<OnBoard> {
           },
         ),
       ),
-    );
-  }
-
-  Row buildDots(int index) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(
-          contents.length,
-          (index) => Container(
-                height: 10,
-                width: currentIndex == index ? 30 : 10,
-                margin: const EdgeInsets.only(right: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.deepOrange),
-              )),
     );
   }
 }
