@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tasks/core/routes.dart';
-
-import '../../../data/models/onBoard/onboarding_contents.dart';
-
-
+import 'package:task/app/decorations.dart';
+import 'package:task/core/routes.dart';
+import 'package:task/data/models/onBoard/onboarding_contents.dart';
+import 'package:task/presentation/pages/on_boarding/widget/build_dots.dart';
 
 class OnBoard extends StatefulWidget {
   const OnBoard({super.key});
@@ -47,10 +46,7 @@ class _OnBoardState extends State<OnBoard> {
               children: [
                 Flexible(
                   child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10)),
+                    decoration: constDecorationBottom10.copyWith(
                         image: DecorationImage(
                             image: AssetImage(contents[index].image),
                             fit: BoxFit.contain)),
@@ -82,7 +78,7 @@ class _OnBoardState extends State<OnBoard> {
                           ),
                         ),
                       ),
-                      buildDots(index),
+                      BuildDots(currentIndex: currentIndex),
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Container(
@@ -132,22 +128,6 @@ class _OnBoardState extends State<OnBoard> {
           },
         ),
       ),
-    );
-  }
-
-  Row buildDots(int index) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(
-          contents.length,
-          (index) => Container(
-                height: 10,
-                width: currentIndex == index ? 30 : 10,
-                margin: const EdgeInsets.only(right: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.deepOrange),
-              )),
     );
   }
 }

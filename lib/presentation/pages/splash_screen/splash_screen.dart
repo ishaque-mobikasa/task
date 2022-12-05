@@ -1,7 +1,10 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../core/routes.dart';
+import 'widget/splash_text.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -36,22 +39,16 @@ class _SplashScreenState extends State<SplashScreen> {
                 bottom: size.height * 0.05,
                 left: size.width * 0.28,
                 child: Column(
-                  children: [
-                    splashText("Welcome to awesome", 20),
-                    splashText("Where we meet expectation with reality!", 10),
+                  children: const [
+                    SplashText(text: "Welcome to awesome", fontSize: 20),
+                    SplashText(
+                        text: "Where we meet expectation with reality!",
+                        fontSize: 10),
                   ],
                 ))
           ],
         ),
       ),
-    );
-  }
-
-  Text splashText(String text, double fontSize) {
-    return Text(
-      text,
-      style: TextStyle(
-          fontWeight: FontWeight.bold, color: Colors.white, fontSize: fontSize),
     );
   }
 }
