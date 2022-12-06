@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
+import 'package:task/presentation/pages/on_boarding/bindings/on_board_binding.dart';
 
 import '../presentation/pages/on_boarding/onboarding.dart';
 import '../presentation/pages/splash_screen/splash_screen.dart';
-
 
 class Routes {
   static const splashScreen = '/splashScreen';
@@ -19,9 +19,9 @@ class AppPages {
       page: () => const SplashScreen(),
     ),
     GetPage(
-      name: Routes.onBoard,
-      page: () => const OnBoard(),
-    ),
+        name: Routes.onBoard,
+        page: () => const OnBoard(),
+        binding: OnBoardBinding()),
     // GetPage(
     //   name: Routes.homeScreen,
     //   page: () => const HomeScreen(),

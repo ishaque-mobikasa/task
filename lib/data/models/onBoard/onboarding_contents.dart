@@ -1,5 +1,5 @@
 
-import 'unboarding_contents_model.dart';
+import 'onboarding_contents_model.dart';
 
 List<OnboadingContents> contents = [
   OnboadingContents(
