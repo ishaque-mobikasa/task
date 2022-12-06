@@ -14,10 +14,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Tasks',
       getPages: AppPages.pages,
+      
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
       home: const SplashScreen(),
+      
     );
   }
 }
