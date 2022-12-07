@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:task/presentation/manager/login/login_controller.dart';
+import 'package:task/app/app_colors.dart';
+import 'package:task/app/themes.dart';
+import 'package:task/presentation/pages/login/login_controller.dart';
 import 'package:task/presentation/pages/login/widgets/custom_form_field.dart';
 
-class LoginScreen extends StatelessWidget {
+import 'widgets/custom_social_button.dart';
+
+class LoginScreen extends GetView<LoginController> {
   const LoginScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(LoginController());
+    //final controller = Get.put(LoginController());
     final size = MediaQuery.of(context).size;
     return SafeArea(
-      child: Scaffold(
-          body: SingleChildScrollView(
-        child: Form(
+        child: Scaffold(
+      body: SingleChildScrollView(
+          child: Obx(
+        () => Form(
           key: controller.loginKey.value,
-          autovalidateMode: AutovalidateMode.always,
+          onChanged: () => controller.toggleLoginButton(),
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Column(children: [
@@ -38,44 +45,72 @@ class LoginScreen extends StatelessWidget {
               ),
               Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: CustomFormField(
-                    hintText: "Password",
-                    type: FieldType.password,
-                    icon: Icons.password,
-                    controller: controller.passwordController.value,
-                  )),
+                  child: Obx(() => CustomFormField(
+                        obscureText: controller.isObscured.value,
+                        hintText: "Password",
+                        type: FieldType.password,
+                        icon: Icons.password,
+                        controller: controller.passwordController.value,
+                        postFixIcon: controller.isObscured.value == true
+                            ? null
+                            : Icons.visibility,
+                        toggleVisibility: () =>
+                            controller.togglePasswordVisibility(),
+                      ))),
               const SizedBox(
                 height: 50,
               ),
               Row(
                 children: [
                   Expanded(
-                    child: SizedBox(
-                      height: 50,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    side:
-                                        const BorderSide(color: Colors.black))),
-                            onPressed: () {
-                              controller.onLoginButtonPress();
-                            },
-                            child: const Text(
-                              "Login",
-                              style: TextStyle(fontSize: 20),
-                            )),
-                      ),
+                      child: SizedBox(
+                    height: 50,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Obx((() => ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              )),
+                          onPressed:
+                              controller.isEnabled.value == true ? () {} : null,
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(fontSize: 20),
+                          )))),
                     ),
-                  ),
+                  )),
                 ],
               ),
+              const SizedBox(
+                height: 30,
+              ),
+              const Text(
+                "OR",
+                style: CustomStyle.style,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CustomWidgets.socialButtonCircle(
+                      googleColor, FontAwesomeIcons.googlePlusG,
+                      iconColor: Colors.white, onTap: () {}),
+                  CustomWidgets.socialButtonCircle(
+                      facebookColor, FontAwesomeIcons.facebookF,
+                      iconColor: Colors.white, onTap: () {}),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              TextButton(
+                  onPressed: () {},
+                  child: const Text("Dont have an Account? SignUp here."))
             ]),
           ),
         ),
       )),
-    );
+    ));
   }
 }

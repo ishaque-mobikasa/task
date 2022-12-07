@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:task/presentation/pages/login/binding/login_binding.dart';
+import 'package:task/presentation/pages/login/login_view.dart';
 import 'package:task/presentation/pages/on_boarding/bindings/on_board_binding.dart';
 
 import '../presentation/pages/on_boarding/onboarding.dart';
@@ -26,10 +28,10 @@ class AppPages {
     //   name: Routes.homeScreen,
     //   page: () => const HomeScreen(),
     // ),
-    // GetPage(
-    //   name: Routes.loginScreen,
-    //   page: () => const LoginScreen(),
-    // ),
+    GetPage(
+        name: Routes.loginScreen,
+        page: () => const LoginScreen(),
+        binding: LoginBinding()),
     // GetPage(
     //   name: Routes.signUpScreen,
     //   page: () => const SignUpScreen(),

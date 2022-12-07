@@ -6,14 +6,21 @@ enum FieldType { eMail, password, normalInputField, phoneNumber }
 
 class CustomFormField extends StatelessWidget {
   final String? Function(String?)? validator;
+  final double? borderRadius;
   final FieldType type;
   final String? hintText;
   final IconData? icon;
+  final IconData? postFixIcon;
   final bool? obscureText;
   final EdgeInsetsGeometry padding;
   final TextEditingController? controller;
+  final VoidCallback? toggleVisibility;
+  // final void Function(void) onToggle;
   const CustomFormField(
       {this.obscureText,
+      this.borderRadius,
+      this.toggleVisibility,
+      this.postFixIcon,
       this.validator,
       this.padding = const EdgeInsets.all(5),
       this.controller,
@@ -31,7 +38,7 @@ class CustomFormField extends StatelessWidget {
           controller: controller,
           inputFormatters: [
             type == FieldType.eMail
-                ? LengthLimitingTextInputFormatter(25)
+                ? LengthLimitingTextInputFormatter(30)
                 : type == FieldType.normalInputField
                     ? LengthLimitingTextInputFormatter(15)
                     : type == FieldType.phoneNumber
@@ -51,7 +58,7 @@ class CustomFormField extends StatelessWidget {
                       ? TextInputType.phone
                       : TextInputType.name,
           //autovalidateMode: AutovalidateMode.onUserInteraction,
-          obscureText: type == FieldType.password,
+          obscureText: obscureText ?? false,
           decoration: InputDecoration(
               fillColor: Colors.white,
               filled: true,
@@ -59,7 +66,17 @@ class CustomFormField extends StatelessWidget {
                 icon,
                 color: Colors.deepPurple,
               ),
+              suffixIcon: type == FieldType.password
+                  ? IconButton(
+                      icon: Icon(postFixIcon ?? Icons.visibility_off),
+                      onPressed: toggleVisibility,
+                      color: Colors.black,
+                    )
+                  : null,
               hintText: hintText,
+              labelText: hintText,
+              labelStyle: const TextStyle(color: Colors.deepPurple),
+              floatingLabelBehavior: FloatingLabelBehavior.always,
               errorStyle: const TextStyle(color: Colors.blue),
               enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.deepPurple)),
@@ -73,14 +90,14 @@ class CustomFormField extends StatelessWidget {
               contentPadding:
                   EdgeInsets.only(left: 0, top: 0, bottom: height * 0.02),
               border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(4.0)))),
+                  borderRadius: BorderRadius.all(Radius.circular(4)))),
           validator: validator ??
               (type == FieldType.eMail
                   ? (value) {
                       if (value!.isEmpty) {
                         return "$hintText Cant be empty";
                       } else if (value.length < 4) {
-                        return "$hintText Must be 6-16 charactors long";
+                        return "$hintText Must be greater than 4 charactors long";
                       } else if (!value.isValidEmail &&
                           !RegExp(r'(^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$)')
                               .hasMatch(value)) {
