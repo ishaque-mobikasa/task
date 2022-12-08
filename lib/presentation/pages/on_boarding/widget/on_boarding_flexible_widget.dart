@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task/core/routes.dart';
 import 'package:task/data/models/onBoard/onboarding_contents.dart';
-import 'package:task/presentation/pages/on_boarding/onboarding_controller.dart';
+import 'package:task/presentation/pages/on_boarding/controller/onboarding_controller.dart';
 import 'build_dots.dart';
 class OnboardingFlexibleWidget extends StatelessWidget {
   const OnboardingFlexibleWidget(

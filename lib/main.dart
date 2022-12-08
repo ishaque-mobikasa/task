@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'core/routes.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Tasks',
       getPages: AppPages.pages,
-      initialRoute: Routes.loginScreen,
+      initialRoute: Routes.signUpScreen,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),

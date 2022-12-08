@@ -101,7 +101,7 @@ class CustomFormField extends StatelessWidget {
                       } else if (!value.isValidEmail &&
                           !RegExp(r'(^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$)')
                               .hasMatch(value)) {
-                        return "Invalid Email/Phone Number";
+                        return "Invalid Email";
                       } else {
                         return null;
                       }
@@ -122,9 +122,9 @@ class CustomFormField extends StatelessWidget {
                           ? (value) {
                               if (value == '' || value == null) {
                                 return "$hintText Cant be empty";
-                              } else if (value.length < 4 ||
+                              } else if (value.length < 3 ||
                                   value.length > 16) {
-                                return "User Name must be 4-14 Charactors";
+                                return "$hintText must be 3-14 Charactors";
                               } else {
                                 return null;
                               }
