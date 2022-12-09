@@ -45,7 +45,6 @@ class SignUpScreen extends GetView<SignUpcontroller> {
                 type: FieldType.phoneNumber,
                 icon: Icons.phone,
                 controller: controller.phoneNumberController.value,
-                borderRadius: 25,
               ),
               Obx(() => CustomFormField(
                     padding:

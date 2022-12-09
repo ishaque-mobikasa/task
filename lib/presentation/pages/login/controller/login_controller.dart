@@ -23,7 +23,6 @@ class LoginController extends GetxController {
   onLoginButtonPress() {
     if (loginKey.value.currentState!.validate()) {
       String? dataOndisk = preferences.getString(emailController.value.text);
-
       if (dataOndisk != null) {
         UserModel user = UserModel.fromJson(jsonDecode(dataOndisk));
         if (user.email == emailController.value.text &&
