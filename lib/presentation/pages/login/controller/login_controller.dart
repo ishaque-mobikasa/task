@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/core/preferences.dart';
+import 'package:task/core/routes.dart';
 import 'package:task/data/models/onBoard/user/user_model.dart';
 
 class LoginController extends GetxController {
@@ -28,7 +29,8 @@ class LoginController extends GetxController {
         if (user.email == emailController.value.text &&
             user.password == passwordController.value.text) {
           preferences.setBool(isLoggedIn, true);
-          Get.snackbar("Valid Credentials", "You are being Logged in");
+          Get.snackbar("Valid Credentials", "You are Successfully Logged in");
+          Get.offNamed(Routes.homeScreen);
         } else {
           Get.snackbar("Invalid Credentials", "Try  again");
           return;

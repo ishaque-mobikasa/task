@@ -18,8 +18,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    checkIsloggedIn();
     super.initState();
-    Timer(const Duration(seconds: 2), () => {Get.offNamed(Routes.onBoard)});
   }
 
   @override
@@ -56,6 +56,11 @@ class _SplashScreenState extends State<SplashScreen> {
 }
 
 checkIsloggedIn() async {
-  SharedPreferences preferences =await SharedPreferences.getInstance();
-return  preferences.getBool(isLoggedIn)==false||preferences.getBool(isLoggedIn)==null?false:true;
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  bool isLogged = preferences.getBool(isLoggedIn) ?? false;
+  if (isLogged) {
+    Timer(const Duration(seconds: 2), () => {Get.offNamed(Routes.homeScreen)});
+  } else {
+    Timer(const Duration(seconds: 2), () => {Get.offNamed(Routes.onBoard)});
+  }
 }

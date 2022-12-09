@@ -26,4 +26,20 @@ class CustomDimensions {
   static const radius16 = 16.0;
   static const radius24 = 24.0;
   static const radius32 = 32.0;
+ //height
+  static const height4 = 4.0;
+  static const height8 = 8.0;
+  static const height10 = 10.0;
+  static const height12 = 12.0;
+  static const height16 = 16.0;
+  static const height20 = 20.0;
+  static const height24 = 24.0;
+  //width
+  static const width4 = 4.0;
+  static const width8 = 8.0;
+  static const width10 = 10.0;
+  static const width12 = 12.0;
+  static const width16 = 16.0;
+  static const width20 = 20.0;
+  static const width24 = 24.0;
 }
