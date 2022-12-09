@@ -15,7 +15,6 @@ class CustomFormField extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final TextEditingController? controller;
   final VoidCallback? toggleVisibility;
-  // final void Function(void) onToggle;
   const CustomFormField(
       {this.obscureText,
       this.borderRadius,
@@ -30,7 +29,6 @@ class CustomFormField extends StatelessWidget {
       this.icon = Icons.email});
   @override
   Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Padding(
       padding: padding,
@@ -57,7 +55,6 @@ class CustomFormField extends StatelessWidget {
                   : type == FieldType.phoneNumber
                       ? TextInputType.phone
                       : TextInputType.name,
-          //autovalidateMode: AutovalidateMode.onUserInteraction,
           obscureText: obscureText ?? false,
           decoration: InputDecoration(
               fillColor: Colors.white,
@@ -96,8 +93,6 @@ class CustomFormField extends StatelessWidget {
                   ? (value) {
                       if (value!.isEmpty) {
                         return "$hintText Cant be empty";
-                      } else if (value.length < 4) {
-                        return "$hintText Must be greater than 4 charactors long";
                       } else if (!value.isValidEmail &&
                           !RegExp(r'(^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$)')
                               .hasMatch(value)) {
@@ -124,7 +119,7 @@ class CustomFormField extends StatelessWidget {
                                 return "$hintText Cant be empty";
                               } else if (value.length < 4 ||
                                   value.length > 16) {
-                                return "User Name must be 4-14 Charactors";
+                                return "$hintText be 4-14 Charactors";
                               } else {
                                 return null;
                               }
@@ -132,7 +127,7 @@ class CustomFormField extends StatelessWidget {
                           : (value) {
                               if (value == '' || value == null) {
                                 return "$hintText Cant be empty";
-                              } else if (value.length < 10) {
+                              } else if (value.isValidPhone) {
                                 return "Phone number Invalid";
                               } else {
                                 return null;

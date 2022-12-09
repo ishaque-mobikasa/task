@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:task/app/app_colors.dart';
+import 'package:task/app/dimensions.dart';
 import 'package:task/app/themes.dart';
 import 'package:task/presentation/pages/login/login_controller.dart';
 import 'package:task/presentation/pages/login/widgets/custom_form_field.dart';
@@ -94,16 +95,14 @@ class LoginScreen extends GetView<LoginController> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   CustomWidgets.socialButtonCircle(
-                      googleColor, FontAwesomeIcons.googlePlusG,
+                      CustomColors.googleColor, FontAwesomeIcons.googlePlusG,
                       iconColor: Colors.white, onTap: () {}),
                   CustomWidgets.socialButtonCircle(
-                      facebookColor, FontAwesomeIcons.facebookF,
+                      CustomColors.facebookColor, FontAwesomeIcons.facebookF,
                       iconColor: Colors.white, onTap: () {}),
                 ],
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: CustomDimensions.height20),
               TextButton(
                   onPressed: () {},
                   child: const Text("Dont have an Account? SignUp here."))

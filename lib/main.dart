@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Tasks',
       getPages: AppPages.pages,
-      initialRoute: Routes.loginScreen,
+      initialRoute: Routes.splashScreen,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),

@@ -24,17 +24,9 @@ class AppPages {
         name: Routes.onBoard,
         page: () => const OnBoard(),
         binding: OnBoardBinding()),
-    // GetPage(
-    //   name: Routes.homeScreen,
-    //   page: () => const HomeScreen(),
-    // ),
     GetPage(
         name: Routes.loginScreen,
         page: () => const LoginScreen(),
         binding: LoginBinding()),
-    // GetPage(
-    //   name: Routes.signUpScreen,
-    //   page: () => const SignUpScreen(),
-    // ),
   ];
 }
