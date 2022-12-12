@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -40,6 +41,11 @@ class SignUpcontroller extends GetxController {
 
   togglePasswordVisibility() {
     isObscured.value = !isObscured.value;
+    if (isObscured.value == false) {
+      Timer(const Duration(seconds: 3), () {
+        isObscured.value = !isObscured.value;
+      });
+    }
   }
 
   toggleSignUpButton() {

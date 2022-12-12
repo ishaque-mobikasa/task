@@ -101,8 +101,6 @@ class CustomFormField extends StatelessWidget {
                   ? (value) {
                       if (value!.isEmpty) {
                         return "$hintText Cant be empty";
-                      } else if (value.length < 4) {
-                        return "$hintText Must be greater than 4 charactors long";
                       } else if (!value.isValidEmail) {
                         return "Invalid Email";
                       } else {

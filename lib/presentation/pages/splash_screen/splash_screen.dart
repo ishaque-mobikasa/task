@@ -57,6 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
 checkIsloggedIn() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
+
   bool isLogged = preferences.getBool(isLoggedIn) ?? false;
   if (isLogged) {
     Timer(const Duration(seconds: 2), () => {Get.offNamed(Routes.homeScreen)});

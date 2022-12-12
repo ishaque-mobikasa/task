@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -44,6 +45,11 @@ class LoginController extends GetxController {
 
   togglePasswordVisibility() {
     isObscured.value = !isObscured.value;
+    if (isObscured.value == false) {
+      Timer(const Duration(seconds: 3), () {
+        isObscured.value = !isObscured.value;
+      });
+    }
   }
 
   toggleLoginButton() {
