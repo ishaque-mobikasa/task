@@ -15,7 +15,6 @@ class CustomFormField extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final TextEditingController? controller;
   final VoidCallback? toggleVisibility;
-  // final void Function(void) onToggle;
   const CustomFormField(
       {this.obscureText,
       this.borderRadius,
@@ -30,7 +29,6 @@ class CustomFormField extends StatelessWidget {
       this.icon = Icons.email});
   @override
   Widget build(BuildContext context) {
-    // final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Padding(
       padding: padding,
@@ -57,7 +55,6 @@ class CustomFormField extends StatelessWidget {
                   : type == FieldType.phoneNumber
                       ? TextInputType.phone
                       : TextInputType.name,
-          //autovalidateMode: AutovalidateMode.onUserInteraction,
           obscureText: obscureText ?? false,
           decoration: InputDecoration(
               fillColor: Colors.white,
