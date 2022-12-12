@@ -3,14 +3,11 @@ import 'package:get/get.dart';
 import 'package:task/core/routes.dart';
 import 'package:task/data/models/onBoard/onboarding_contents.dart';
 import 'package:task/presentation/pages/on_boarding/onboarding_controller.dart';
-
 import 'build_dots.dart';
-
 class OnboardingFlexibleWidget extends StatelessWidget {
   const OnboardingFlexibleWidget(
       {Key? key, required this.myController, required this.index})
       : super(key: key);
-
   final OnBoardingController myController;
   final int index;
   @override
@@ -55,7 +52,7 @@ class OnboardingFlexibleWidget extends StatelessWidget {
                               )
                             : TextButton(
                                 onPressed: () {
-                                  Get.offNamed(Routes.homeScreen);
+                                  Get.offNamed(Routes.loginScreen);
                                 },
                                 child: const Text(
                                   "Skip",
@@ -66,7 +63,7 @@ class OnboardingFlexibleWidget extends StatelessWidget {
                             onPressed: () async {
                               if (myController.currentIndex.value ==
                                   contents.length - 1) {
-                                Get.offNamed(Routes.homeScreen);
+                                Get.offNamed(Routes.loginScreen);
                               }
 
                               await myController.controller.value.nextPage(

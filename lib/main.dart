@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'core/routes.dart';
-import 'presentation/pages/splash_screen/splash_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -14,12 +15,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Tasks',
       getPages: AppPages.pages,
-      
+      initialRoute: Routes.splashScreen,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: const SplashScreen(),
-      
     );
   }
 }
