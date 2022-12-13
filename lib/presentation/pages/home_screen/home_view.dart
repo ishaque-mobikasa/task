@@ -1,70 +1,43 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:task/app/utils/app_colors.dart';
+import 'package:get/get.dart';
+import 'package:task/presentation/pages/home_screen/controller/home_controller.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          bottomNavigationBar: AnimatedBottomNavigationBar(
-              icons: const [Icons.home, Icons.category_outlined, Icons.person],
-              activeIndex: 0,
-              onTap: (index) => {}),
-          body: CustomScrollView(
-            slivers: [
+          bottomNavigationBar: Obx(() => NavigationBar(
+                  onDestinationSelected: (value) =>
+                      controller.indexChanger(value),
+                  selectedIndex: controller.currentIndex.value,
+                  height: 60,
+                  backgroundColor: Colors.white,
+                  destinations: const [
+                    NavigationDestination(
+                        icon: Icon(Icons.home), label: "Home"),
+                    NavigationDestination(
+                        icon: Icon(Icons.category), label: "Categories"),
+                    NavigationDestination(
+                        icon: Icon(Icons.person), label: "Profile"),
+                  ])),
+          body: NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) => [
               SliverAppBar(
                 centerTitle: true,
-                floating: true,
-                title: const Text('M Y H O M E P A G E'),
-                expandedHeight: 300,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.pink,
-                        borderRadius: BorderRadius.circular(30)),
-                  ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                      height: 300,
-                      color: CustomColors.themeColor,
-                    ),
-                  ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                      height: 300,
-                      color: CustomColors.themeColor,
-                    ),
-                  ),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                      height: 300,
-                      color: CustomColors.themeColor,
-                    ),
-                  ),
-                ),
-              ),
+                title: const Text("D A S H B O A R D"),
+                actions: [
+                  IconButton(
+                      onPressed: () {
+                        controller.fetchAllitems();
+                      },
+                      icon: const Icon(Icons.search))
+                ],
+              )
             ],
+            body: ListView(children: [Container()]),
           )),
     );
   }
