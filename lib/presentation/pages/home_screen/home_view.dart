@@ -12,6 +12,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return SafeArea(
       child: Scaffold(
           bottomNavigationBar: Obx(() => NavigationBar(
@@ -60,9 +61,8 @@ class HomeView extends GetView<HomeController> {
                           ),
                         ],
                       ),
-                      Flexible(
-                          child: SizedBox(
-                        height: 200,
+                      SizedBox(
+                        height: size.height * 0.25,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: controller.productsList
@@ -71,7 +71,7 @@ class HomeView extends GetView<HomeController> {
                               .take(7)
                               .toList(),
                         ),
-                      )),
+                      ),
                       const Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: CustomDimensions.padding20,
@@ -82,9 +82,8 @@ class HomeView extends GetView<HomeController> {
                           style: CustomStyle.style,
                         ),
                       ),
-                      Flexible(
-                          child: SizedBox(
-                        height: 200,
+                      SizedBox(
+                        height: size.height * 0.25,
                         child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: controller.productsList
@@ -93,7 +92,7 @@ class HomeView extends GetView<HomeController> {
                                     CategoryStrings.jewelery)
                                 .map((data) => ProductTileSmall(model: data))
                                 .toList()),
-                      )),
+                      ),
                       const Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: CustomDimensions.padding20,
@@ -104,9 +103,8 @@ class HomeView extends GetView<HomeController> {
                           style: CustomStyle.style,
                         ),
                       ),
-                      Flexible(
-                          child: SizedBox(
-                        height: 200,
+                      SizedBox(
+                        height: size.height * 0.25,
                         child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: controller.productsList
@@ -115,7 +113,7 @@ class HomeView extends GetView<HomeController> {
                                     CategoryStrings.electronics)
                                 .map((data) => ProductTileSmall(model: data))
                                 .toList()),
-                      )),
+                      ),
                       const Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: CustomDimensions.padding20,
@@ -126,9 +124,8 @@ class HomeView extends GetView<HomeController> {
                           style: CustomStyle.style,
                         ),
                       ),
-                      Flexible(
-                          child: SizedBox(
-                        height: 200,
+                      SizedBox(
+                        height: size.height * 0.25,
                         child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: controller.productsList
@@ -137,7 +134,7 @@ class HomeView extends GetView<HomeController> {
                                     CategoryStrings.womensClothing)
                                 .map((data) => ProductTileSmall(model: data))
                                 .toList()),
-                      )),
+                      ),
                       const Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: CustomDimensions.padding20,
@@ -148,9 +145,8 @@ class HomeView extends GetView<HomeController> {
                           style: CustomStyle.style,
                         ),
                       ),
-                      Flexible(
-                          child: SizedBox(
-                        height: 200,
+                      SizedBox(
+                        height: size.height * 0.25,
                         child: ListView(
                             scrollDirection: Axis.horizontal,
                             children: controller.productsList
@@ -159,7 +155,7 @@ class HomeView extends GetView<HomeController> {
                                     CategoryStrings.mensClothing)
                                 .map((data) => ProductTileSmall(model: data))
                                 .toList()),
-                      )),
+                      ),
                     ],
                   )),
           )),

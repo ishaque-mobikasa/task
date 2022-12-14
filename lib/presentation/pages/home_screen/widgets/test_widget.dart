@@ -3,9 +3,9 @@ import 'package:task/app/utils/themes.dart';
 import 'package:task/data/models/onBoard/products/product_model.dart';
 
 class ProductTileSmall extends StatelessWidget {
-  ProductTileSmall({super.key, required this.model});
+  const ProductTileSmall({super.key, required this.model});
 
-  ProductsModel model;
+  final ProductsModel model;
 
   @override
   Widget build(BuildContext context) {
