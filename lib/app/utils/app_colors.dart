@@ -6,7 +6,7 @@ class CustomColors {
   static const Color twitterColor = Color(0xff00ABEA);
   static const Color instaColor = Color(0xffBE2289);
   static const Color whatsappColor = Color(0xff075E54);
-  static const Color linkedinColor = Color(0xff0085E0);
-  static const Color githubColor = Color(0xff202020);
+  static const Color blueColor = Color.fromARGB(255, 91, 91, 218);
+  static const Color blackColor = Color(0xff202020);
   static const Color googleColor = Color(0xffDF4A32);
 }

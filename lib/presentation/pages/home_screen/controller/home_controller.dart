@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:task/data/data_sources/all_products_request.dart';
 import 'package:task/data/models/onBoard/products/product_model.dart';
@@ -7,6 +5,13 @@ import 'package:task/data/models/onBoard/products/product_model.dart';
 class HomeController extends GetxController {
   RxList<ProductsModel> productsList = <ProductsModel>[].obs;
   RxInt currentIndex = 0.obs;
+  RxBool isLoading = true.obs;
+  @override
+  void onInit() {
+    fetchAllitems();
+    super.onInit();
+  }
+
   void indexChanger(int newIndex) {
     if (currentIndex.value != newIndex) {
       currentIndex.value = newIndex;
@@ -15,11 +20,12 @@ class HomeController extends GetxController {
   }
 
   void fetchAllitems() async {
-    final List<ProductsModel> networkResponse =
-        await NetworkRequester.fetchAllProductsCategoryWise(
-            CategoryType.mensClothing);
-    for (var element in networkResponse) {
-      log(element.category.toString());
+    try {
+      isLoading.value = true;
+      productsList.value = await NetworkRequester.fetchAllProducts();
+      productsList.shuffle();
+    } finally {
+      isLoading.value = false;
     }
   }
 }

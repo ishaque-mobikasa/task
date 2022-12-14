@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:task/core/preferences.dart';
+import 'package:task/core/preferences_const_strings.dart.dart';
 import 'package:task/core/routes.dart';
 import 'package:task/data/models/onBoard/user/user_model.dart';
 
@@ -28,7 +28,7 @@ class LoginController extends GetxController {
         UserModel user = UserModel.fromJson(jsonDecode(dataOndisk));
         if (user.email == emailController.value.text &&
             user.password == passwordController.value.text) {
-          preferences.setBool(isLoggedIn, true);
+          preferences.setBool(SharedPrefStrings.isLoggedIn, true);
           Get.snackbar("Valid Credentials", "You are Successfully Logged in");
           Get.offNamed(Routes.homeScreen);
         } else {

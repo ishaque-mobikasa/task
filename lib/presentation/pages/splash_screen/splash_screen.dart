@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:task/core/preferences.dart';
+import 'package:task/core/preferences_const_strings.dart.dart';
 
 import '../../../core/routes.dart';
 import 'widget/splash_text.dart';
@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
 checkIsloggedIn() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  bool isLogged = preferences.getBool(isLoggedIn) ?? false;
+  bool isLogged = preferences.getBool(SharedPrefStrings.isLoggedIn) ?? false;
   if (isLogged) {
     Timer(const Duration(seconds: 2), () => {Get.offNamed(Routes.homeScreen)});
   } else {
