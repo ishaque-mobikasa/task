@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:task/app/app_colors.dart';
-import 'package:task/app/dimensions.dart';
-import 'package:task/app/themes.dart';
-import 'package:task/presentation/pages/login/login_controller.dart';
+import 'package:task/app/utils/app_colors.dart';
+import 'package:task/app/utils/dimensions.dart';
+import 'package:task/app/utils/themes.dart';
+import 'package:task/core/routes.dart';
+import 'package:task/presentation/pages/login/controller/login_controller.dart';
 import 'package:task/presentation/pages/login/widgets/custom_form_field.dart';
 
 import 'widgets/custom_social_button.dart';
@@ -36,10 +37,11 @@ class LoginScreen extends GetView<LoginController> {
               const SizedBox(
                 height: 15,
               ),
-              const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: CustomFormField(
                     type: FieldType.eMail,
+                    controller: controller.emailController.value,
                   )),
               const SizedBox(
                 height: 10,
@@ -74,8 +76,11 @@ class LoginScreen extends GetView<LoginController> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               )),
-                          onPressed:
-                              controller.isEnabled.value == true ? () {} : null,
+                          onPressed: controller.isEnabled.value == true
+                              ? () {
+                                  controller.onLoginButtonPress();
+                                }
+                              : null,
                           child: const Text(
                             "Login",
                             style: TextStyle(fontSize: 20),
@@ -104,7 +109,9 @@ class LoginScreen extends GetView<LoginController> {
               ),
               const SizedBox(height: CustomDimensions.height20),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.offNamed(Routes.signUpScreen);
+                  },
                   child: const Text("Dont have an Account? SignUp here."))
             ]),
           ),

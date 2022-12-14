@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task/app/utils/preferences.dart';
 
 import '../../../core/routes.dart';
 import 'widget/splash_text.dart';
@@ -16,8 +18,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    checkIsloggedIn();
     super.initState();
-    Timer(const Duration(seconds: 2), () => Get.offNamed(Routes.onBoard));
   }
 
   @override
@@ -50,5 +52,16 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+}
+
+checkIsloggedIn() async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+
+  bool isLogged = preferences.getBool(SharedPrefString.isLoggedIn) ?? false;
+  if (isLogged) {
+    Timer(const Duration(seconds: 2), () => {Get.offNamed(Routes.homeScreen)});
+  } else {
+    Timer(const Duration(seconds: 2), () => {Get.offNamed(Routes.onBoard)});
   }
 }

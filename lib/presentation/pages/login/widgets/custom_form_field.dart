@@ -73,30 +73,36 @@ class CustomFormField extends StatelessWidget {
               hintText: hintText,
               labelText: hintText,
               labelStyle: const TextStyle(color: Colors.deepPurple),
-              floatingLabelBehavior: FloatingLabelBehavior.always,
+              floatingLabelBehavior: FloatingLabelBehavior.auto,
               errorStyle: const TextStyle(color: Colors.blue),
-              enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.deepPurple)),
-              disabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.deepPurple)),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(borderRadius ?? 10)),
+                  borderSide: const BorderSide(color: Colors.deepPurple)),
+              disabledBorder: OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(borderRadius ?? 10)),
+                  borderSide: const BorderSide(color: Colors.deepPurple)),
               focusedErrorBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.deepPurple)),
-              errorBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
+              errorBorder: OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(borderRadius ?? 10)),
+                  borderSide: const BorderSide(
                       style: BorderStyle.solid, color: Colors.deepPurple)),
               contentPadding:
                   EdgeInsets.only(left: 0, top: 0, bottom: height * 0.02),
-              border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(4)))),
+              border: OutlineInputBorder(
+                borderRadius:
+                    BorderRadius.all(Radius.circular(borderRadius ?? 10)),
+              )),
           validator: validator ??
               (type == FieldType.eMail
                   ? (value) {
                       if (value!.isEmpty) {
                         return "$hintText Cant be empty";
-                      } else if (!value.isValidEmail &&
-                          !RegExp(r'(^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$)')
-                              .hasMatch(value)) {
-                        return "Invalid Email/Phone Number";
+                      } else if (!value.isValidEmail) {
+                        return "Invalid Email";
                       } else {
                         return null;
                       }
@@ -117,9 +123,9 @@ class CustomFormField extends StatelessWidget {
                           ? (value) {
                               if (value == '' || value == null) {
                                 return "$hintText Cant be empty";
-                              } else if (value.length < 4 ||
+                              } else if (value.length < 3 ||
                                   value.length > 16) {
-                                return "$hintText be 4-14 Charactors";
+                                return "$hintText must be 3-14 Charactors";
                               } else {
                                 return null;
                               }
@@ -127,7 +133,7 @@ class CustomFormField extends StatelessWidget {
                           : (value) {
                               if (value == '' || value == null) {
                                 return "$hintText Cant be empty";
-                              } else if (value.isValidPhone) {
+                              } else if (value.length < 10) {
                                 return "Phone number Invalid";
                               } else {
                                 return null;
