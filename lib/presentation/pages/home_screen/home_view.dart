@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task/app/utils/custom_strings.dart';
 import 'package:task/app/utils/dimensions.dart';
 import 'package:task/app/utils/themes.dart';
-import 'package:task/core/preferences_const_strings.dart.dart';
 import 'package:task/presentation/pages/home_screen/controller/home_controller.dart';
 import 'package:task/presentation/pages/home_screen/widgets/product_tile.dart';
 import 'package:task/presentation/pages/on_boarding/widget/build_dots.dart';

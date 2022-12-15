@@ -66,14 +66,14 @@ class SignUpcontroller extends GetxController {
           state: stateController.value.text);
       if (preferences.containsKey(model.email)) {
         Get.snackbar("OOPS ! ..",
-            CustomStrings.emailAlreadyRegistered,
+            CustomWarningStrings.emailAlreadyRegistered,
             colorText: Colors.black);
 
         return;
       } else {
         preferences.setString(model.email, jsonEncode(model.toJson()));
         Get.snackbar(
-            "Hooraaay", CustomStrings.registrationSuccess);
+            "Hooraaay", CustomWarningStrings.registrationSuccess);
         Future.delayed(const Duration(seconds: 1))
             .then((value) => Get.offNamed(Routes.loginScreen));
       }
