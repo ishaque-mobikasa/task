@@ -9,4 +9,5 @@ class CustomColors {
   static const Color blueColor = Color.fromARGB(255, 91, 91, 218);
   static const Color blackColor = Color(0xff202020);
   static const Color googleColor = Color(0xffDF4A32);
+  static const Color whiteColor = Color.fromARGB(255, 255, 255, 255);
 }

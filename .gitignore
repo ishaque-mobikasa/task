@@ -31,7 +31,6 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-pubspec.lock
 
 # Symbolication related
 app.*.symbols
@@ -44,3 +43,9 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 macos/Flutter/GeneratedPluginRegistrant.swift
+# Pubspec files
+pubspec.yaml
+# Pubspec lock file
+pubspec.lock
+
+

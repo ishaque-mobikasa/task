@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:task/app/utils/custom_strings.dart';
 import 'package:task/app/utils/dimensions.dart';
 import 'package:task/app/utils/themes.dart';
+import 'package:task/core/routes.dart';
 import 'package:task/presentation/pages/home_screen/controller/home_controller.dart';
 import 'package:task/presentation/pages/home_screen/widgets/product_tile.dart';
 import 'package:task/presentation/pages/on_boarding/widget/build_dots.dart';
@@ -104,7 +105,11 @@ class HomeView extends GetView<HomeController> {
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: controller.productsList
-                        .map((element) => ProductTileSmall(model: element))
+                        .map((element) => ProductTileSmall(
+                              model: element,
+                              onTap: () => Get.toNamed(Routes.productDetails,
+                                  arguments: element),
+                            ))
                         .take(7)
                         .toList(),
                   ),
@@ -117,7 +122,11 @@ class HomeView extends GetView<HomeController> {
                       children: controller.productsList
                           .where((element) =>
                               element.category == CategoryStrings.jewelery)
-                          .map((data) => ProductTileSmall(model: data))
+                          .map((data) => ProductTileSmall(
+                                model: data,
+                                onTap: () => Get.toNamed(Routes.productDetails,
+                                    arguments: data),
+                              ))
                           .toList()),
                 ),
                 const Padding(
@@ -136,7 +145,11 @@ class HomeView extends GetView<HomeController> {
                       children: controller.productsList
                           .where((element) =>
                               element.category == CategoryStrings.electronics)
-                          .map((data) => ProductTileSmall(model: data))
+                          .map((data) => ProductTileSmall(
+                                model: data,
+                                onTap: () => Get.toNamed(Routes.productDetails,
+                                    arguments: data),
+                              ))
                           .toList()),
                 ),
                 headingText("Clothing ideas for Her.."),
@@ -148,7 +161,11 @@ class HomeView extends GetView<HomeController> {
                           .where((element) =>
                               element.category ==
                               CategoryStrings.womensClothing)
-                          .map((data) => ProductTileSmall(model: data))
+                          .map((data) => ProductTileSmall(
+                                model: data,
+                                onTap: () => Get.toNamed(Routes.productDetails,
+                                    arguments: data),
+                              ))
                           .toList()),
                 ),
                 headingText("Unleash your Masculinity..."),
@@ -159,7 +176,11 @@ class HomeView extends GetView<HomeController> {
                       children: controller.productsList
                           .where((element) =>
                               element.category == CategoryStrings.mensClothing)
-                          .map((data) => ProductTileSmall(model: data))
+                          .map((data) => ProductTileSmall(
+                                model: data,
+                                onTap: () => Get.toNamed(Routes.productDetails,
+                                    arguments: data),
+                              ))
                           .toList()),
                 ),
               ],
