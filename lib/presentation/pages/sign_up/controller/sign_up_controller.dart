@@ -1,18 +1,14 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task/app/utils/custom_strings.dart';
 import 'package:task/core/routes.dart';
 import 'package:task/data/models/onBoard/user/user_model.dart';
 
 class SignUpcontroller extends GetxController {
-  @override
-  void onInit() async {
-    preferences = await SharedPreferences.getInstance();
-    super.onInit();
-  }
-
   late SharedPreferences preferences;
   final RxBool isObscured = true.obs;
   final RxBool isEnabled = false.obs;
@@ -28,6 +24,11 @@ class SignUpcontroller extends GetxController {
       TextEditingController().obs;
   final Rx<TextEditingController> stateController = TextEditingController().obs;
   final Rx<TextEditingController> cityController = TextEditingController().obs;
+  @override
+  void onInit() async {
+    preferences = await SharedPreferences.getInstance();
+    super.onInit();
+  }
 
   clearControllers() {
     emailController.value.clear();
@@ -40,6 +41,11 @@ class SignUpcontroller extends GetxController {
 
   togglePasswordVisibility() {
     isObscured.value = !isObscured.value;
+    if (isObscured.value == false) {
+      Timer(const Duration(seconds: 3), () {
+        isObscured.value = !isObscured.value;
+      });
+    }
   }
 
   toggleSignUpButton() {
@@ -60,14 +66,14 @@ class SignUpcontroller extends GetxController {
           state: stateController.value.text);
       if (preferences.containsKey(model.email)) {
         Get.snackbar("OOPS ! ..",
-            "E mail is already registered..Try Logging in or use a different Email",
+            CustomStrings.emailAlreadyRegistered,
             colorText: Colors.black);
 
         return;
       } else {
         preferences.setString(model.email, jsonEncode(model.toJson()));
         Get.snackbar(
-            "Hooraaay", "Successfully created new Account..Now try Logging in");
+            "Hooraaay", CustomStrings.registrationSuccess);
         Future.delayed(const Duration(seconds: 1))
             .then((value) => Get.offNamed(Routes.loginScreen));
       }

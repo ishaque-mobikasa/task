@@ -1,9 +1,12 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/core/preferences_const_strings.dart.dart';
+import 'package:task/app/utils/custom_strings.dart';
+import 'package:task/app/utils/preferences.dart';
 import 'package:task/core/routes.dart';
 import 'package:task/data/models/onBoard/user/user_model.dart';
 
@@ -28,15 +31,16 @@ class LoginController extends GetxController {
         UserModel user = UserModel.fromJson(jsonDecode(dataOndisk));
         if (user.email == emailController.value.text &&
             user.password == passwordController.value.text) {
-          preferences.setBool(SharedPrefStrings.isLoggedIn, true);
-          Get.snackbar("Valid Credentials", "You are Successfully Logged in");
+          preferences.setBool(SharedPrefString.isLoggedIn, true);
+          Get.snackbar(
+              CustomStrings.validCredentials, CustomStrings.loginSuccess);
           Get.offNamed(Routes.homeScreen);
         } else {
-          Get.snackbar("Invalid Credentials", "Try  again");
+          Get.snackbar(CustomStrings.invalidCredentials, "Try  again");
           return;
         }
       } else {
-        Get.snackbar("You are not registered..", "Try Registering with Us");
+        Get.snackbar(CustomStrings.notRegistered, CustomStrings.registerPrompt);
         return;
       }
     }
@@ -44,6 +48,11 @@ class LoginController extends GetxController {
 
   togglePasswordVisibility() {
     isObscured.value = !isObscured.value;
+    if (isObscured.value == false) {
+      Timer(const Duration(seconds: 3), () {
+        isObscured.value = !isObscured.value;
+      });
+    }
   }
 
   toggleLoginButton() {
