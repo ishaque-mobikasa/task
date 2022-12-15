@@ -7,6 +7,8 @@ import 'package:task/presentation/pages/login/login_view.dart';
 import 'package:task/presentation/pages/main_displayer/binding/main_screen_binding.dart';
 import 'package:task/presentation/pages/main_displayer/main_displayer_view.dart';
 import 'package:task/presentation/pages/on_boarding/bindings/on_board_binding.dart';
+import 'package:task/presentation/pages/profile/binding/profile_binding.dart';
+import 'package:task/presentation/pages/profile/profile_view.dart';
 import 'package:task/presentation/pages/sign_up/binding/sign_up_binding.dart';
 import 'package:task/presentation/pages/sign_up/sign_up_view.dart';
 
@@ -21,6 +23,7 @@ class Routes {
   static const signUpScreen = '/signUpScreen';
   static const mainDisplayer = '/mainDisplayer';
   static const productDetails = '/productDetails';
+  static const profileScreen = '/profileScreen';
 }
 
 class AppPages {
@@ -51,7 +54,11 @@ class AppPages {
         binding: MainDisplayerBinding()),
     GetPage(
       name: Routes.productDetails,
-      page: () => ProductDetailsPage(),
+      page: () => const ProductDetailsPage(),
     ),
+    GetPage(
+        name: Routes.profileScreen,
+        page: () => const ProfileView(),
+        binding: ProfileBinding()),
   ];
 }

@@ -7,15 +7,19 @@ import 'package:task/data/models/onBoard/products/product_model.dart';
 
 class HomeController extends GetxController {
   RxList<ProductsModel> productsList = <ProductsModel>[].obs;
-
   RxBool isLoading = true.obs;
   RxInt dotsIndex = 0.obs;
   Rx<PageController> dotsController = PageController().obs;
   @override
   void onInit() {
     fetchAllitems();
-    dotsChanger(dotsIndex.value);
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    dotsChanger(dotsIndex.value);
   }
 
   void fetchAllitems() async {

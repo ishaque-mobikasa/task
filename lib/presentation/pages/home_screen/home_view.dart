@@ -23,11 +23,7 @@ class HomeView extends GetView<HomeController> {
           centerTitle: true,
           title: const Text("D A S H B O A R D"),
           actions: [
-            IconButton(
-                onPressed: () {
-                  controller.fetchAllitems();
-                },
-                icon: const Icon(Icons.search))
+            IconButton(onPressed: () {}, icon: const Icon(Icons.search))
           ],
         )
       ],
