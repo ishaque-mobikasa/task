@@ -59,7 +59,8 @@ checkIsloggedIn() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
   bool isLogged = preferences.getBool(SharedPrefStrings.isLoggedIn) ?? false;
   if (isLogged) {
-    Timer(const Duration(seconds: 2), () => {Get.offNamed(Routes.homeScreen)});
+    Timer(
+        const Duration(seconds: 2), () => {Get.offNamed(Routes.mainDisplayer)});
   } else {
     Timer(const Duration(seconds: 2), () => {Get.offNamed(Routes.onBoard)});
   }
