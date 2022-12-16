@@ -30,9 +30,11 @@ class LoginController extends GetxController {
         if (user.email == emailController.value.text &&
             user.password == passwordController.value.text) {
           preferences.setBool(SharedPrefString.isLoggedIn, true);
+          preferences.setString(
+              SharedPrefString.loggedInUserkey, emailController.value.text);
           Get.snackbar(CustomWarningStrings.validCredentials,
               CustomWarningStrings.loginSuccess);
-          Get.offNamed(Routes.homeScreen);
+          Get.offNamed(Routes.mainDisplayer);
         } else {
           Get.snackbar(CustomWarningStrings.invalidCredentials, "Try  again");
           return;

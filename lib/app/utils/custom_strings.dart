@@ -11,6 +11,8 @@ class CustomWarningStrings {
 }
 class SharedPrefString{
   static const String isLoggedIn="isLoggedIn";
+  static const String loggedInUserkey="loggedInUser";
+
 } 
 class CategoryStrings{
 static const String jewelery="jewelery";

@@ -14,12 +14,7 @@ class HomeController extends GetxController {
   void onInit() {
     fetchAllitems();
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-    dotsChanger(dotsIndex.value);
+    dotsChanger(0);
   }
 
   void fetchAllitems() async {

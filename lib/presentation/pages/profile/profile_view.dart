@@ -13,7 +13,6 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
     return SingleChildScrollView(
       child: Stack(
         children: [
@@ -43,7 +42,9 @@ class ProfileView extends GetView<ProfileController> {
                 const SizedBox(
                   height: 15,
                 ),
-                const NameNumberCard(nameText: "Name", phone: "9747344535"),
+                NameNumberCard(
+                    nameText: controller.userData.value.email.toString(),
+                    phone: controller.userData.value.phoneNumber.toString()),
                 const SizedBox(
                   height: 10,
                 ),
@@ -83,7 +84,11 @@ class ProfileView extends GetView<ProfileController> {
                       onTap: () {},
                     ),
                     AccountGridItem(
-                        icon: Icons.logout, title: 'Logout', onTap: () {}),
+                        icon: Icons.logout,
+                        title: 'Logout',
+                        onTap: () {
+                          controller.onLogoutButtonClick();
+                        }),
                   ],
                 )
               ],
