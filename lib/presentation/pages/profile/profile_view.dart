@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task/app/utils/app_colors.dart';
+import 'package:task/core/routes.dart';
 import 'package:task/presentation/pages/profile/controller/profile_controller.dart';
 
 import 'widgets/account_grid_item.dart';
@@ -61,7 +62,9 @@ class ProfileView extends GetView<ProfileController> {
                     AccountGridItem(
                       icon: Icons.manage_accounts,
                       title: 'Edit Profile',
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(Routes.editProfileScreen);
+                      },
                     ),
                     AccountGridItem(
                       icon: Icons.info,

@@ -4,6 +4,6 @@ import 'package:task/presentation/pages/profile/controller/profile_controller.da
 class ProfileBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put<ProfileController>(ProfileController());
+    Get.put(ProfileController());
   }
 }
