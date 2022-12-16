@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task/app/utils/app_colors.dart';
 import 'package:task/app/utils/custom_strings.dart';
 import 'package:task/core/routes.dart';
 import 'package:task/data/models/onBoard/user/user_model.dart';
@@ -24,8 +25,18 @@ class ProfileController extends GetxController {
     super.onInit();
   }
 
-  onLogoutButtonClick() {
-    preferences.setBool(SharedPrefString.isLoggedIn, false);
-    Get.offNamedUntil(Routes.loginScreen, (route) => false);
+  onLogoutButtonClick() async {
+    await Get.defaultDialog(
+      confirmTextColor: CustomColors.whiteColor,
+      textConfirm: "Confirm",
+      radius: 10,
+      middleText: "Do you want to log out?",
+      title: "Logout !",
+      onCancel: () => Get.back(),
+      onConfirm: () {
+        preferences.setBool(SharedPrefString.isLoggedIn, false);
+        Get.offNamedUntil(Routes.loginScreen, (route) => false);
+      },
+    );
   }
 }

@@ -9,7 +9,7 @@ class HomeController extends GetxController {
   RxList<ProductsModel> productsList = <ProductsModel>[].obs;
   RxBool isLoading = true.obs;
   RxInt dotsIndex = 0.obs;
-  Rx<PageController> dotsController = PageController().obs;
+  // Rx<PageController> dotsController = PageController().obs;
   @override
   void onInit() {
     fetchAllitems();
@@ -27,13 +27,7 @@ class HomeController extends GetxController {
     }
   }
 
-  dotsChanger(int index) {
+  dotsChanger(int index) async {
     dotsIndex.value = index;
-    Timer(
-        const Duration(seconds: 2),
-        () => {
-              dotsController.value.nextPage(
-                  duration: const Duration(seconds: 2), curve: Curves.easeIn)
-            });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task/app/utils/custom_strings.dart';
@@ -14,7 +15,6 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    controller.dotsController.value.initialPage;
     return Scaffold(
         body: NestedScrollView(
       headerSliverBuilder: (context, innerBoxIsScrolled) => [
@@ -31,65 +31,62 @@ class HomeView extends GetView<HomeController> {
           ? const Center(child: CircularProgressIndicator())
           : ListView(
               children: [
-                SizedBox(
-                  height: 200,
-                  child: PageView(
-                      controller: controller.dotsController.value,
-                      onPageChanged: (index) {
-                        controller.dotsChanger(index);
-                        if (index == 5) {
-                          controller.dotsController.value.jumpToPage(0);
-                        }
-                      },
-                      children: controller.productsList
-                          .take(6)
-                          .map(
-                            (element) => Card(
-                              child: Container(
-                                width: 100,
-                                height: 100,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                padding: const EdgeInsets.all(10),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Center(
-                                    child: Image.network(
-                                      element.image.toString(),
-                                      loadingBuilder:
-                                          (context, child, loadingProgress) {
-                                        return loadingProgress == null
-                                            ? child
-                                            : SizedBox(
-                                                height: size.width * 0.2,
-                                                child: Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                  value: loadingProgress
-                                                              .expectedTotalBytes !=
-                                                          null
-                                                      ? loadingProgress
-                                                              .cumulativeBytesLoaded /
-                                                          loadingProgress
-                                                              .expectedTotalBytes!
-                                                      : null,
-                                                )));
-                                      },
-                                      fit: BoxFit.cover,
-                                    ),
+                CarouselSlider(
+                    items: controller.productsList
+                        .take(6)
+                        .map(
+                          (element) => Card(
+                            child: Container(
+                              width: size.width,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              padding: const EdgeInsets.all(10),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Center(
+                                  child: Image.network(
+                                    element.image.toString(),
+                                    loadingBuilder:
+                                        (context, child, loadingProgress) {
+                                      return loadingProgress == null
+                                          ? child
+                                          : SizedBox(
+                                              height: size.width * 0.2,
+                                              child: Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                value: loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProgress
+                                                            .cumulativeBytesLoaded /
+                                                        loadingProgress
+                                                            .expectedTotalBytes!
+                                                    : null,
+                                              )));
+                                    },
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
                             ),
-                          )
-                          .toList()),
-                ),
+                          ),
+                        )
+                        .toList()
+                        .reversed
+                        .toList(),
+                    options: CarouselOptions(
+                        viewportFraction: 1,
+                        autoPlay: true,
+                        onPageChanged: (index, reason) =>
+                            controller.dotsChanger(index))),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: BuildDots(
                     currentIndex: controller.dotsIndex.value,
-                    dotsCount: 5,
+                    dotsCount: 6,
                     dotsColor: const Color.fromARGB(255, 39, 132, 3),
                   ),
                 ),
@@ -106,7 +103,7 @@ class HomeView extends GetView<HomeController> {
                               onTap: () => Get.toNamed(Routes.productDetails,
                                   arguments: element),
                             ))
-                        .take(7)
+                        .take(4)
                         .toList(),
                   ),
                 ),
@@ -125,6 +122,7 @@ class HomeView extends GetView<HomeController> {
                               ))
                           .toList()),
                 ),
+                
                 const Padding(
                   padding: EdgeInsets.symmetric(
                       vertical: CustomDimensions.padding20, horizontal: 30),
@@ -146,6 +144,7 @@ class HomeView extends GetView<HomeController> {
                                 onTap: () => Get.toNamed(Routes.productDetails,
                                     arguments: data),
                               ))
+                          .take(4)
                           .toList()),
                 ),
                 headingText("Clothing ideas for Her.."),
@@ -162,6 +161,7 @@ class HomeView extends GetView<HomeController> {
                                 onTap: () => Get.toNamed(Routes.productDetails,
                                     arguments: data),
                               ))
+                          .take(4)
                           .toList()),
                 ),
                 headingText("Unleash your Masculinity..."),
