@@ -14,9 +14,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
-    return Scaffold(
-        body: NestedScrollView(
+    return NestedScrollView(
       headerSliverBuilder: (context, innerBoxIsScrolled) => [
         SliverAppBar(
           floating: true,
@@ -185,7 +183,7 @@ class HomeView extends GetView<HomeController> {
                 ),
               ],
             )),
-    ));
+    );
   }
 
   Padding headingText(String text) {

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:task/data/repositories/data_repositories.dart';
+import 'package:task/app/utils/custom_strings.dart';
+
 
 class DioService {
   static final dio = Dio(BaseOptions(baseUrl: MyApiUrl.backendUrl));

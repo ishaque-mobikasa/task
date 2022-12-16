@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:task/data/data_sources/dio_services.dart';
+import 'package:task/app/utils/custom_strings.dart';
+import 'package:task/network/dio_services.dart';
 import 'package:task/data/models/onBoard/products/product_model.dart';
-import 'package:task/data/repositories/data_repositories.dart';
+
 
 enum CategoryType { jewelery, electronics, mensClothing, womensClothing }
 
-class NetworkRequester {
+class HomeRepository {
   static Future<List<ProductsModel>> fetchAllProducts() async {
     Response response = await DioService.getMethod(url: MyApiUrl.allProducts);
     if (response.statusCode == 200) {
