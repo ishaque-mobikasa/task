@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/app/utils/custom_strings.dart';
 import 'package:task/core/routes.dart';
-import 'package:task/data/models/onBoard/user/user_model.dart';
+import 'package:task/data/models/user/user_model.dart';
 
 class SignUpcontroller extends GetxController {
   late SharedPreferences preferences;

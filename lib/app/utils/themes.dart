@@ -8,8 +8,7 @@ class AppTheme {
 
 class CustomStyle {
   static const style = TextStyle(
-    fontWeight: FontWeight.bold,
-    fontSize: 18,
-    backgroundColor: Colors.white,
-  );
+      fontWeight: FontWeight.bold,
+      fontSize: 18,
+      overflow: TextOverflow.ellipsis);
 }

@@ -5,9 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/app/utils/custom_strings.dart';
-import 'package:task/app/utils/preferences.dart';
 import 'package:task/core/routes.dart';
-import 'package:task/data/models/onBoard/user/user_model.dart';
+import 'package:task/data/models/user/user_model.dart';
 
 class LoginController extends GetxController {
   @override
@@ -30,16 +29,17 @@ class LoginController extends GetxController {
         UserModel user = UserModel.fromJson(jsonDecode(dataOndisk));
         if (user.email == emailController.value.text &&
             user.password == passwordController.value.text) {
-          preferences.setBool(SharedPrefString.isLoggedIn, true);
-          Get.snackbar(
-              CustomStrings.validCredentials, CustomStrings.loginSuccess);
+          preferences.setBool(CustomStrings.isLoggedIn, true);
+          Get.snackbar(CustomStrings.validCredentials,
+              CustomStrings.loginSuccess);
           Get.offNamed(Routes.homeScreen);
         } else {
           Get.snackbar(CustomStrings.invalidCredentials, "Try  again");
           return;
         }
       } else {
-        Get.snackbar(CustomStrings.notRegistered, CustomStrings.registerPrompt);
+        Get.snackbar(CustomStrings.notRegistered,
+            CustomStrings.registerPrompt);
         return;
       }
     }
