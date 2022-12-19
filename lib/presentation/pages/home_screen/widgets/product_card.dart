@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:task/app/utils/app_colors.dart';
 import 'package:task/app/utils/decorations.dart';
 import 'package:task/app/utils/themes.dart';
-import 'package:task/data/models/onBoard/products/product_model.dart';
+import 'package:task/data/models/products/product_model.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({super.key, required this.model});

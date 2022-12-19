@@ -7,7 +7,6 @@ class MainDisplayerView extends GetView<MainDisplayerController> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: Obx(() => NavigationBar(
@@ -21,7 +20,8 @@ class MainDisplayerView extends GetView<MainDisplayerController> {
                       icon: Icon(Icons.category), label: "Categories"),
                   NavigationDestination(
                       icon: Icon(Icons.person), label: "Profile"),
-                ])),
+                ])
+                ),
         body: Obx(() => controller.currentWidget),
       ),
     );

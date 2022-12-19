@@ -15,8 +15,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-        body: NestedScrollView(
+    return NestedScrollView(
       headerSliverBuilder: (context, innerBoxIsScrolled) => [
         SliverAppBar(
           floating: true,
@@ -114,7 +113,7 @@ class HomeView extends GetView<HomeController> {
                       scrollDirection: Axis.horizontal,
                       children: controller.productsList
                           .where((element) =>
-                              element.category == CategoryStrings.jewelery)
+                              element.category == CustomStrings.jewelery)
                           .map((data) => ProductTileSmall(
                                 model: data,
                                 onTap: () => Get.toNamed(Routes.productDetails,
@@ -138,7 +137,7 @@ class HomeView extends GetView<HomeController> {
                       scrollDirection: Axis.horizontal,
                       children: controller.productsList
                           .where((element) =>
-                              element.category == CategoryStrings.electronics)
+                              element.category == CustomStrings.electronics)
                           .map((data) => ProductTileSmall(
                                 model: data,
                                 onTap: () => Get.toNamed(Routes.productDetails,
@@ -155,7 +154,7 @@ class HomeView extends GetView<HomeController> {
                       children: controller.productsList
                           .where((element) =>
                               element.category ==
-                              CategoryStrings.womensClothing)
+                              CustomStrings.womensClothing)
                           .map((data) => ProductTileSmall(
                                 model: data,
                                 onTap: () => Get.toNamed(Routes.productDetails,
@@ -171,7 +170,7 @@ class HomeView extends GetView<HomeController> {
                       scrollDirection: Axis.horizontal,
                       children: controller.productsList
                           .where((element) =>
-                              element.category == CategoryStrings.mensClothing)
+                              element.category == CustomStrings.mensClothing)
                           .map((data) => ProductTileSmall(
                                 model: data,
                                 onTap: () => Get.toNamed(Routes.productDetails,
@@ -181,7 +180,7 @@ class HomeView extends GetView<HomeController> {
                 ),
               ],
             )),
-    ));
+    );
   }
 
   Padding headingText(String text) {

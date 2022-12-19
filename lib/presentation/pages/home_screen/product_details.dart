@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task/app/utils/themes.dart';
-import 'package:task/data/models/onBoard/products/product_model.dart';
+import 'package:task/data/models/products/product_model.dart';
 import 'package:task/presentation/pages/home_screen/widgets/product_card.dart';
 
 class ProductDetailsPage extends StatelessWidget {

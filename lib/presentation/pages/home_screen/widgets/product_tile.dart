@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task/app/utils/themes.dart';
-import 'package:task/data/models/onBoard/products/product_model.dart';
+import 'package:task/data/models/products/product_model.dart';
 
 class ProductTileSmall extends StatelessWidget {
   const ProductTileSmall({super.key, required this.model, this.onTap});

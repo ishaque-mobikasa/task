@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:task/data/repositories/data_repositories.dart';
+import 'package:task/app/utils/custom_strings.dart';
 
-class DioService {
-  static final dio = Dio(BaseOptions(baseUrl: MyApiUrl.backendUrl));
+abstract class NetworkManager {
+}
+
+class DioService implements NetworkManager {
+  static final dio = Dio(BaseOptions(baseUrl: CustomStrings.backendUrl));
   static Future<dynamic> postMethod(
       {required String url, required value}) async {
     return await dio.post(url, data: value).then((value) => value);
