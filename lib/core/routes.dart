@@ -51,7 +51,7 @@ class AppPages {
         binding: MainDisplayerBinding()),
     GetPage(
       name: Routes.productDetails,
-      page: () => ProductDetailsPage(),
+      page: () => const ProductDetailsPage(),
     ),
   ];
 }

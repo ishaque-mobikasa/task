@@ -1,4 +1,4 @@
-class CustomWarningStrings {
+class CustomStrings {
   static const emailAlreadyRegistered =
       "OOPS !!..E mail is already registered..Try Logging in or use a different Email";
   static const registrationSuccess =
@@ -8,23 +8,16 @@ class CustomWarningStrings {
   static const invalidCredentials = "Invalid Credentials";
   static const notRegistered = "You are not registered..";
   static const registerPrompt = "Try Registering with Us";
-}
-class SharedPrefString{
-  static const String isLoggedIn="isLoggedIn";
-} 
-class CategoryStrings{
-static const String jewelery="jewelery";
-static const String electronics="electronics";
-static const String mensClothing="men's clothing";
-static const String womensClothing="women's clothing";
-}
-//Api EndPoints
-class MyApiUrl {
+  static const String isLoggedIn = "isLoggedIn";
+  static const String jewelery = "jewelery";
+  static const String electronics = "electronics";
+  static const String mensClothing = "men's clothing";
+  static const String womensClothing = "women's clothing";
   static String backendUrl = "https://fakestoreapi.com/";
-  static String allProducts = "products";
-  static String allCategories = "products/categories";
-  static String jewelery = "products/category/jewelery";
-  static String electronics = "products/category/electronics";
-  static String mensClothing = "products/category/men's clothing";
-  static String womensClothing = "products/category/women's clothing";
+  static String allProductsUrl = "products";
+  static String allCategoriesUrl = "products/categories";
+  static String jeweleryUrl = "products/category/jewelery";
+  static String electronicsUrl = "products/category/electronics";
+  static String mensClothingUrl = "products/category/men's clothing";
+  static String womensClothingUrl = "products/category/women's clothing";
 }

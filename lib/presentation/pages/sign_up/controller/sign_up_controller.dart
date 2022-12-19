@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/app/utils/custom_strings.dart';
 import 'package:task/core/routes.dart';
-import 'package:task/data/models/onBoard/user/user_model.dart';
+import 'package:task/data/models/user/user_model.dart';
 
 class SignUpcontroller extends GetxController {
   late SharedPreferences preferences;
@@ -66,14 +66,14 @@ class SignUpcontroller extends GetxController {
           state: stateController.value.text);
       if (preferences.containsKey(model.email)) {
         Get.snackbar("OOPS ! ..",
-            CustomWarningStrings.emailAlreadyRegistered,
+            CustomStrings.emailAlreadyRegistered,
             colorText: Colors.black);
 
         return;
       } else {
         preferences.setString(model.email, jsonEncode(model.toJson()));
         Get.snackbar(
-            "Hooraaay", CustomWarningStrings.registrationSuccess);
+            "Hooraaay", CustomStrings.registrationSuccess);
         Future.delayed(const Duration(seconds: 1))
             .then((value) => Get.offNamed(Routes.loginScreen));
       }
