@@ -1,16 +1,14 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:task/app/utils/app_colors.dart';
 import 'package:task/app/utils/custom_strings.dart';
 import 'package:task/presentation/pages/profile/widgets/title_widget.dart';
-
 class NameNumberCard extends StatelessWidget {
   final String nameText;
   final String phone;
-  String? image;
-  void Function()? onTap;
-  NameNumberCard({
+  final String? image;
+  final void Function()? onTap;
+  const NameNumberCard({
     this.onTap,
     this.image,
     required this.nameText,

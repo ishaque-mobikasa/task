@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:task/app/utils/app_colors.dart';
 
 class ProfileCard extends StatelessWidget {
   ProfileCard({
@@ -22,7 +23,7 @@ class ProfileCard extends StatelessWidget {
   final String name;
   final String phoneNumber;
   final TextStyle? style;
-  void Function()? onTap;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -31,12 +32,23 @@ class ProfileCard extends StatelessWidget {
       child: SingleChildScrollView(
         child: Container(
           margin: const EdgeInsets.all(20),
-          height: size.height * 0.35,
+          height: size.height * 0.3,
           width: size.width * 0.9,
           decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-              color: Color.fromARGB(255, 201, 38, 38)),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
+            gradient: LinearGradient(begin: Alignment.bottomCenter, colors: [
+              CustomColors.blackColor,
+              CustomColors.googleColor,
+              CustomColors.facebookColor,
+              CustomColors.instaColor
+            ]),
+            // color: CustomColors.whatsappColor
+          ),
           child: LayoutBuilder(
               builder: (ctx, cstr) => Stack(
                     fit: StackFit.loose,
@@ -46,11 +58,15 @@ class ProfileCard extends StatelessWidget {
                         left: 0,
                         right: 0,
                         child: Container(
+                          margin: const EdgeInsets.all(10),
                           height: cstr.maxHeight * 0.5,
                           decoration: const BoxDecoration(
                               borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10)),
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10),
+                              ),
                               color: Colors.white),
                         ),
                       ),

@@ -16,7 +16,7 @@ class EditProfileView extends GetView<EditProfileController> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text(controller.model.value.email),
+          title: const Text("Edit Profile Data"),
         ),
         body: SingleChildScrollView(
           child: Column(
