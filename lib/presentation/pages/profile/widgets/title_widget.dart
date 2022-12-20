@@ -10,7 +10,7 @@ class TitleWidget extends StatelessWidget {
     required this.text,
     this.color = Colors.black,
     this.fontSize = 20,
-    this.weight = FontWeight.w100,
+    this.weight = FontWeight.w100
   }) : super(key: key);
 
   @override

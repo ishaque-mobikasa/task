@@ -1,9 +1,5 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task/data/models/products/product_model.dart';
-
 import 'package:task/domain/repositories/home_repo/home_repository.dart';
 
 class HomeController extends GetxController {

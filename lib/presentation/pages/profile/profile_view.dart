@@ -43,9 +43,10 @@ class ProfileView extends GetView<ProfileController> {
                 const SizedBox(
                   height: 15,
                 ),
-                NameNumberCard(
+                Obx(() => NameNumberCard(
+                    image: controller.userData.value.image,
                     nameText: controller.userData.value.email.toString(),
-                    phone: controller.userData.value.phoneNumber.toString()),
+                    phone: controller.userData.value.phoneNumber.toString())),
                 const SizedBox(
                   height: 10,
                 ),
@@ -81,11 +82,11 @@ class ProfileView extends GetView<ProfileController> {
                       title: 'Share',
                       onTap: () {},
                     ),
-                    AccountGridItem(
-                      icon: Icons.security,
-                      title: 'Privacy ',
-                      onTap: () {},
-                    ),
+                    Obx(() => AccountGridItem(
+                          icon: Icons.security,
+                          title: controller.userData.value.state,
+                          onTap: () {},
+                        )),
                     AccountGridItem(
                         icon: Icons.logout,
                         title: 'Logout',

@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/app/utils/app_colors.dart';
 import 'package:task/app/utils/custom_strings.dart';
 import 'package:task/core/routes.dart';
-import 'package:task/data/models/onBoard/user/user_model.dart';
+import 'package:task/data/models/user/user_model.dart';
 
 class ProfileController extends GetxController {
   late SharedPreferences preferences;
@@ -14,12 +14,14 @@ class ProfileController extends GetxController {
           password: "password",
           email: "email",
           city: "city",
+          image: "image",
           state: "state")
       .obs;
   @override
   void onInit() async {
     preferences = await SharedPreferences.getInstance();
-    final data = preferences.getString(SharedPrefString.loggedInUserkey);
+
+    final data = preferences.getString(CustomStrings.loggedInUserkey);
     userData.value = UserModel.fromJson(
         jsonDecode(preferences.getString(data.toString()).toString()));
     super.onInit();
@@ -34,7 +36,7 @@ class ProfileController extends GetxController {
       title: "Logout !",
       onCancel: () => Get.back(),
       onConfirm: () {
-        preferences.setBool(SharedPrefString.isLoggedIn, false);
+        preferences.setBool(CustomStrings.isLoggedIn, false);
         Get.offNamedUntil(Routes.loginScreen, (route) => false);
       },
     );

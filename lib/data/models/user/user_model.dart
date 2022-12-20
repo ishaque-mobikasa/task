@@ -1,3 +1,5 @@
+import 'package:task/app/utils/custom_strings.dart';
+
 class UserModel {
   String phoneNumber;
   String password;
@@ -20,7 +22,7 @@ class UserModel {
       email: json["email"],
       city: json["city"],
       state: json["state"],
-      image: json["image"] ?? "",
+      image: json["image"] ?? CustomStrings.defaultProfilePicture,
     );
   }
 
@@ -31,7 +33,7 @@ class UserModel {
       "email": email,
       "city": city,
       "state": state,
-      "image": image ?? ""
+      "image": image ?? CustomStrings.defaultProfilePicture
     };
   }
 
