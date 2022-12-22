@@ -14,7 +14,6 @@ class ProfileController extends GetxController {
           password: "password",
           email: "email",
           city: "city",
-          image: "image",
           state: "state")
       .obs;
   @override

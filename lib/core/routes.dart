@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:task/presentation/pages/categories/binding/category_binding.dart';
+import 'package:task/presentation/pages/categories/category_listing_screen.dart';
 import 'package:task/presentation/pages/categories/category_view.dart';
 import 'package:task/presentation/pages/edit_profile/binding/edit_profile_binding.dart';
 import 'package:task/presentation/pages/edit_profile/edit_profile_screen.dart';
@@ -30,6 +31,7 @@ class Routes {
   static const profileScreen = '/profileScreen';
   static const editProfileScreen = '/editProfileScreen';
   static const categoryView = '/categoryView';
+  static const categoryListingScreen = '/categoryListingScreen';
 }
 
 class AppPages {
@@ -73,6 +75,10 @@ class AppPages {
     GetPage(
         name: Routes.categoryView,
         page: () => const CategoryView(),
+        binding: CategoryBinding()),
+    GetPage(
+        name: Routes.categoryListingScreen,
+        page: () => const CategoryListingView(),
         binding: CategoryBinding()),
   ];
 }

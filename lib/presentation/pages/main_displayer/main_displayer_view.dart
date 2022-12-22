@@ -20,8 +20,7 @@ class MainDisplayerView extends GetView<MainDisplayerController> {
                       icon: Icon(Icons.category), label: "Categories"),
                   NavigationDestination(
                       icon: Icon(Icons.person), label: "Profile"),
-                ])
-                ),
+                ])),
         body: Obx(() => controller.currentWidget),
       ),
     );
