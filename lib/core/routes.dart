@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:task/presentation/pages/edit_profile/binding/edit_profile_binding.dart';
+import 'package:task/presentation/pages/edit_profile/edit_profile_screen.dart';
 import 'package:task/presentation/pages/home_screen/bindings/home_binding.dart';
 import 'package:task/presentation/pages/home_screen/home_view.dart';
 import 'package:task/presentation/pages/home_screen/product_details.dart';
@@ -7,6 +9,8 @@ import 'package:task/presentation/pages/login/login_view.dart';
 import 'package:task/presentation/pages/main_displayer/binding/main_screen_binding.dart';
 import 'package:task/presentation/pages/main_displayer/main_displayer_view.dart';
 import 'package:task/presentation/pages/on_boarding/bindings/on_board_binding.dart';
+import 'package:task/presentation/pages/profile/binding/profile_binding.dart';
+import 'package:task/presentation/pages/profile/profile_view.dart';
 import 'package:task/presentation/pages/sign_up/binding/sign_up_binding.dart';
 import 'package:task/presentation/pages/sign_up/sign_up_view.dart';
 
@@ -21,6 +25,8 @@ class Routes {
   static const signUpScreen = '/signUpScreen';
   static const mainDisplayer = '/mainDisplayer';
   static const productDetails = '/productDetails';
+  static const profileScreen = '/profileScreen';
+  static const editProfileScreen = '/editProfileScreen';
 }
 
 class AppPages {
@@ -53,5 +59,13 @@ class AppPages {
       name: Routes.productDetails,
       page: () => const ProductDetailsPage(),
     ),
+    GetPage(
+        name: Routes.profileScreen,
+        page: () => const ProfileView(),
+        binding: ProfileBinding()),
+    GetPage(
+        name: Routes.editProfileScreen,
+        page: () => const EditProfileView(),
+        binding: EditProfileBinding()),
   ];
 }

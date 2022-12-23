@@ -9,6 +9,7 @@ class CustomStrings {
   static const notRegistered = "You are not registered..";
   static const registerPrompt = "Try Registering with Us";
   static const String isLoggedIn = "isLoggedIn";
+  static const String loggedInUserkey = "loggedInUser";
   static const String jewelery = "jewelery";
   static const String electronics = "electronics";
   static const String mensClothing = "men's clothing";
