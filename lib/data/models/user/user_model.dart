@@ -1,5 +1,3 @@
-import 'package:task/app/utils/custom_strings.dart';
-
 class UserModel {
   String phoneNumber;
   String password;
@@ -17,13 +15,12 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      phoneNumber: json["phoneNumber"],
-      password: json["password"],
-      email: json["email"],
-      city: json["city"],
-      state: json["state"],
-      image: json["image"] ?? CustomStrings.defaultProfilePicture,
-    );
+        phoneNumber: json["phoneNumber"],
+        password: json["password"],
+        email: json["email"],
+        city: json["city"],
+        state: json["state"],
+        image: json["image"]);
   }
 
   Map<String, dynamic> toJson() {
@@ -33,7 +30,7 @@ class UserModel {
       "email": email,
       "city": city,
       "state": state,
-      "image": image ?? CustomStrings.defaultProfilePicture
+      "image": image
     };
   }
 

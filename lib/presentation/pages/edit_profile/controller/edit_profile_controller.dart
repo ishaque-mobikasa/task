@@ -12,13 +12,12 @@ import 'package:task/presentation/pages/profile/controller/profile_controller.da
 
 class EditProfileController extends GetxController {
   late SharedPreferences preferences;
-  RxString pickedImage = CustomStrings.defaultProfilePicture.obs;
+  RxString? tempImage = "".obs;
   Rx<UserModel> model = UserModel(
           phoneNumber: "phoneNumber",
           password: "password",
           email: "email",
           city: "city",
-          image: "image",
           state: "state")
       .obs;
   final editKey = GlobalKey<FormState>().obs;
@@ -34,9 +33,9 @@ class EditProfileController extends GetxController {
     final data = preferences.getString(CustomStrings.loggedInUserkey);
     model.value = UserModel.fromJson(
         jsonDecode(preferences.getString(data.toString()).toString()));
+    tempImage!.value = model.value.image.toString();
     stateController.value = TextEditingController(text: model.value.state);
     cityController.value = TextEditingController(text: model.value.city);
-    pickedImage.value = model.value.image!;
     super.onInit();
   }
 
@@ -56,7 +55,7 @@ class EditProfileController extends GetxController {
           state: stateController.value.text,
           phoneNumber: model.value.phoneNumber,
           password: model.value.password,
-          image: pickedImage.value);
+          image: model.value.image);
       preferences.setString(model.value.email, jsonEncode(newModel.toJson()));
       profileController.userData.value = newModel;
       Get.back();
@@ -71,8 +70,9 @@ class EditProfileController extends GetxController {
     if (imageFile == null) {
       return null;
     } else {
-      pickedImage.value =
+      model.value.image =
           await ImageManipulator.imageStringFromFile(File(imageFile.path));
+      tempImage!.value = model.value.image.toString();
       isEnabled.value = true;
     }
   }

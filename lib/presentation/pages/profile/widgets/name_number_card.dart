@@ -1,8 +1,9 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:task/app/utils/app_colors.dart';
-import 'package:task/app/utils/custom_strings.dart';
 import 'package:task/presentation/pages/profile/widgets/title_widget.dart';
+
 class NameNumberCard extends StatelessWidget {
   final String nameText;
   final String phone;
@@ -27,12 +28,19 @@ class NameNumberCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
             child: Row(
               children: [
-                CircleAvatar(
-                  radius: 45,
-                  backgroundColor: Colors.transparent,
-                  backgroundImage: MemoryImage(const Base64Decoder()
-                      .convert(image ?? CustomStrings.defaultProfilePicture)),
-                ),
+                image == null
+                    ? const CircleAvatar(
+                        radius: 45,
+                        backgroundColor: Colors.transparent,
+                        backgroundImage:
+                            AssetImage("assets/images/profile_dummy.jpg"),
+                      )
+                    : CircleAvatar(
+                        radius: 45,
+                        backgroundColor: Colors.transparent,
+                        backgroundImage:
+                            MemoryImage(const Base64Decoder().convert(image!)),
+                      ),
                 const SizedBox(
                   width: 20,
                 ),
