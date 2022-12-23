@@ -12,13 +12,11 @@ import 'package:task/presentation/pages/profile/controller/profile_controller.da
 
 class EditProfileController extends GetxController {
   late SharedPreferences preferences;
-  RxString pickedImage = CustomStrings.defaultProfilePicture.obs;
   Rx<UserModel> model = UserModel(
           phoneNumber: "phoneNumber",
           password: "password",
           email: "email",
           city: "city",
-          image: "image",
           state: "state")
       .obs;
   final editKey = GlobalKey<FormState>().obs;
@@ -36,7 +34,6 @@ class EditProfileController extends GetxController {
         jsonDecode(preferences.getString(data.toString()).toString()));
     stateController.value = TextEditingController(text: model.value.state);
     cityController.value = TextEditingController(text: model.value.city);
-    pickedImage.value = model.value.image!;
     super.onInit();
   }
 
@@ -50,15 +47,8 @@ class EditProfileController extends GetxController {
 
   onUpdateButtonPressed() {
     if (editKey.value.currentState!.validate()) {
-      UserModel newModel = UserModel(
-          email: model.value.email,
-          city: cityController.value.text,
-          state: stateController.value.text,
-          phoneNumber: model.value.phoneNumber,
-          password: model.value.password,
-          image: pickedImage.value);
-      preferences.setString(model.value.email, jsonEncode(newModel.toJson()));
-      profileController.userData.value = newModel;
+      preferences.setString(model.value.email, jsonEncode(model.toJson()));
+      profileController.userData.value = model.value;
       Get.back();
     } else {
       return null;
@@ -71,8 +61,15 @@ class EditProfileController extends GetxController {
     if (imageFile == null) {
       return null;
     } else {
-      pickedImage.value =
+      String pickedImage =
           await ImageManipulator.imageStringFromFile(File(imageFile.path));
+      model.value = UserModel(
+          email: model.value.email,
+          city: cityController.value.text,
+          state: stateController.value.text,
+          phoneNumber: model.value.phoneNumber,
+          password: model.value.password,
+          image: pickedImage);
       isEnabled.value = true;
     }
   }

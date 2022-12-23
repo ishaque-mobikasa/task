@@ -5,7 +5,7 @@ import 'package:task/app/utils/app_colors.dart';
 
 class ProfileCard extends StatelessWidget {
   ProfileCard({
-    required this.imageData,
+    this.imageData,
     required this.name,
     required this.phoneNumber,
     this.onTap,
@@ -19,7 +19,7 @@ class ProfileCard extends StatelessWidget {
             fontSize: 18,
             overflow: TextOverflow.ellipsis);
   }
-  final String imageData;
+  final String? imageData;
   final String name;
   final String phoneNumber;
   final TextStyle? style;
@@ -73,11 +73,19 @@ class ProfileCard extends StatelessWidget {
                       Center(
                         child: Stack(
                           children: [
-                            CircleAvatar(
-                              radius: 80,
-                              backgroundImage: MemoryImage(
-                                  const Base64Decoder().convert(imageData)),
-                            ),
+                            imageData == null
+                                ? const CircleAvatar(
+                                    radius: 80,
+                                    backgroundColor: Colors.transparent,
+                                    backgroundImage: AssetImage(
+                                        "assets/images/profile_dummy.jpg"),
+                                  )
+                                : CircleAvatar(
+                                    radius: 80,
+                                    backgroundImage: MemoryImage(
+                                        const Base64Decoder()
+                                            .convert(imageData!)),
+                                  ),
                             Positioned(
                               right: 1,
                               bottom: 1,
