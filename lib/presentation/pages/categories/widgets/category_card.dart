@@ -4,17 +4,14 @@ import 'package:task/data/models/products/product_model.dart';
 class CategoryCard extends StatelessWidget {
   void Function()? onTap;
   TextStyle? style;
-  String? topText;
   String? bottomText;
   ProductsModel? productsModel;
   CategoryCard(
       {super.key,
       this.style,
       this.bottomText,
-      this.topText,
       this.onTap,
       this.productsModel}) {
-    topText ?? (topText = "Top Text");
     bottomText ?? (bottomText = "Bottom Text");
     style ??
         (style = const TextStyle(
@@ -48,7 +45,28 @@ class CategoryCard extends StatelessWidget {
                                     "assets/images/image4.jpg",
                                     fit: BoxFit.cover,
                                   )
-                                : Image.network(productsModel!.image!),
+                                : Image.network(
+                                    productsModel!.image!,
+                                    loadingBuilder:
+                                        (context, child, loadingProgress) {
+                                      return loadingProgress == null
+                                          ? child
+                                          : SizedBox(
+                                              height: size.width * 0.2,
+                                              child: Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                value: loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProgress
+                                                            .cumulativeBytesLoaded /
+                                                        loadingProgress
+                                                            .expectedTotalBytes!
+                                                    : null,
+                                              )));
+                                    },
+                                  ),
                           ),
                         ),
                       ),
@@ -61,36 +79,15 @@ class CategoryCard extends StatelessWidget {
                             top: 0, bottom: 0, right: 0, left: 0),
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
-                          color: Colors.black26,
+                              topLeft: Radius.circular(0),
+                              topRight: Radius.circular(0)),
+                          color: Color.fromARGB(200, 0, 0, 0),
                         ),
                         height: cstr.maxHeight * 0.2,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(bottomText!, style: style),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topCenter,
-                      child: Container(
-                        width: cstr.maxWidth,
-                        margin: const EdgeInsets.only(
-                            top: 0, bottom: 0, right: 0, left: 0),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(10),
-                              bottomRight: Radius.circular(10)),
-                          color: Colors.black26,
-                        ),
-                        height: cstr.maxHeight * 0.2,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(topText!, style: style),
                           ],
                         ),
                       ),

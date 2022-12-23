@@ -30,7 +30,7 @@ class RectangularCard extends StatelessWidget {
       margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.black26,
+        color: const Color.fromARGB(66, 161, 174, 242),
       ),
       width: size.width,
       height: size.height * 0.15,
@@ -48,6 +48,24 @@ class RectangularCard extends StatelessWidget {
                             child: Center(
                                 child: Image.network(
                               product.image.toString(),
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
+                                return loadingProgress == null
+                                    ? child
+                                    : SizedBox(
+                                        height: size.width * 0.2,
+                                        child: Center(
+                                            child: CircularProgressIndicator(
+                                          value: loadingProgress
+                                                      .expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
+                                        )));
+                              },
                               fit: BoxFit.cover,
                             )),
                           ),
@@ -75,7 +93,7 @@ class RectangularCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              "\u{20B9} ${(product.price! * 1.5.toInt()).toString()}",
+                              "\u{20B9} ${((product.price! * 1.5).toInt()).toString()}",
                               style: CustomStyle.style.copyWith(
                                   fontSize: 18,
                                   decoration: TextDecoration.lineThrough),
