@@ -23,9 +23,7 @@ class EditProfileView extends GetView<EditProfileController> {
             children: [
               Obx(() => ProfileCard(
                     style: CustomStyle.style,
-                    imageData: controller.tempImage!.value != ""
-                        ? controller.model.value.image
-                        : null,
+                    imageData: controller.model.value.image,
                     name: controller.model.value.email,
                     phoneNumber: controller.model.value.phoneNumber,
                     onTap: controller.onPickImage,
