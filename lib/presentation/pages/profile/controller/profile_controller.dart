@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/app/utils/app_colors.dart';
@@ -19,7 +20,6 @@ class ProfileController extends GetxController {
   @override
   void onInit() async {
     preferences = await SharedPreferences.getInstance();
-
     final data = preferences.getString(CustomStrings.loggedInUserkey);
     userData.value = UserModel.fromJson(
         jsonDecode(preferences.getString(data.toString()).toString()));
