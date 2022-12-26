@@ -14,7 +14,7 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
 
     return NestedScrollView(
       headerSliverBuilder: (context, innerBoxIsScrolled) => [

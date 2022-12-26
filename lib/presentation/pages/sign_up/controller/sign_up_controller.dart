@@ -12,7 +12,7 @@ class SignUpcontroller extends GetxController {
   late SharedPreferences preferences;
   final RxBool isObscured = true.obs;
   final RxBool isEnabled = false.obs;
-  final signUpKey = GlobalKey<FormState>().obs;
+  var signUpKey = GlobalKey<FormState>().obs;
   final Rx<TextEditingController> emailController = TextEditingController().obs;
   final Rx<TextEditingController> passwordController =
       TextEditingController().obs;
@@ -65,15 +65,13 @@ class SignUpcontroller extends GetxController {
           city: cityController.value.text,
           state: stateController.value.text);
       if (preferences.containsKey(model.email)) {
-        Get.snackbar("OOPS ! ..",
-            CustomStrings.emailAlreadyRegistered,
+        Get.snackbar("OOPS ! ..", CustomStrings.emailAlreadyRegistered,
             colorText: Colors.black);
 
         return;
       } else {
         preferences.setString(model.email, jsonEncode(model.toJson()));
-        Get.snackbar(
-            "Hooraaay", CustomStrings.registrationSuccess);
+        Get.snackbar("Hooraaay", CustomStrings.registrationSuccess);
         Future.delayed(const Duration(seconds: 1))
             .then((value) => Get.offNamed(Routes.loginScreen));
       }

@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:task/app/utils/decorations.dart';
 import 'package:task/data/models/onBoard/onboarding_contents.dart';
 import 'package:task/presentation/pages/on_boarding/controller/onboarding_controller.dart';
+
 import 'widget/on_boarding_flexible_widget.dart';
+
 class OnBoard extends GetView<OnBoardingController> {
   const OnBoard({super.key});
   @override

@@ -14,6 +14,7 @@ class HomeRepository {
     }
     return [];
   }
+
   static Future<List<ProductsModel>> fetchAllProductsCategoryWise(
       CategoryType categoryType) async {
     Response response;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class SplashText extends StatelessWidget {
   final String text;
   final double fontSize;

@@ -11,7 +11,7 @@ class AccountGridItem extends StatelessWidget {
   }) : super(key: key);
   final IconData icon;
   final String title;
-  final Function() onTap;
+  final void Function() onTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

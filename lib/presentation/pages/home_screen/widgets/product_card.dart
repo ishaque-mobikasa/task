@@ -5,12 +5,12 @@ import 'package:task/app/utils/themes.dart';
 import 'package:task/data/models/products/product_model.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.product,required this.onTap});
+  const ProductCard({super.key, required this.product, required this.onTap});
   final ProductsModel product;
   final void Function() onTap;
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
     return GestureDetector(
       child: Column(children: [
         SizedBox(
@@ -125,7 +125,7 @@ class ProductCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       color: CustomColors.themeColor),
                   child: TextButton(
-                      onPressed:onTap,
+                      onPressed: onTap,
                       child: Text("Add to Cart",
                           style: CustomStyle.style.copyWith(
                               color: CustomColors.whiteColor, fontSize: 25))),

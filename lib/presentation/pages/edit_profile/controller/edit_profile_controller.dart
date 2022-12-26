@@ -19,7 +19,7 @@ class EditProfileController extends GetxController {
           city: "city",
           state: "state")
       .obs;
-  final editKey = GlobalKey<FormState>().obs;
+  var editKey = GlobalKey<FormState>().obs;
   RxBool isEnabled = false.obs;
   final RxBool isObscured = true.obs;
   ProfileController profileController = Get.put(ProfileController());
@@ -29,7 +29,7 @@ class EditProfileController extends GetxController {
   @override
   void onInit() async {
     preferences = await SharedPreferences.getInstance();
-    final data = preferences.getString(CustomStrings.loggedInUserkey);
+    var data = preferences.getString(CustomStrings.loggedInUserkey);
     model.value = UserModel.fromJson(
         jsonDecode(preferences.getString(data.toString()).toString()));
     stateController.value = TextEditingController(text: model.value.state);

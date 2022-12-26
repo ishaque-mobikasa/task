@@ -11,7 +11,7 @@ class SignUpScreen extends GetView<SignUpcontroller> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
           body: SingleChildScrollView(

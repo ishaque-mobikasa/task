@@ -35,7 +35,7 @@ class Routes {
 }
 
 class AppPages {
-  static final pages = [
+  static var pages = [
     GetPage(
       name: Routes.splashScreen,
       page: () => const SplashScreen(),
@@ -66,7 +66,7 @@ class AppPages {
     ),
     GetPage(
         name: Routes.profileScreen,
-        page: () => const ProfileView(),
+        page: () => ProfileView(),
         binding: ProfileBinding()),
     GetPage(
         name: Routes.editProfileScreen,

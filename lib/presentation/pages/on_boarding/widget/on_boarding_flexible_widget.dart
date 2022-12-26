@@ -39,7 +39,8 @@ class OnboardingFlexibleWidget extends StatelessWidget {
           ),
           Obx(() => BuildDots(
                 currentIndex: myController.currentIndex.value,
-                dotsCount: contents.length,dotsColor: Colors.deepOrange,
+                dotsCount: contents.length,
+                dotsColor: Colors.deepOrange,
               )),
           Padding(
             padding: const EdgeInsets.all(15.0),

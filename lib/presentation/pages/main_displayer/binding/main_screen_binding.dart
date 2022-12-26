@@ -9,7 +9,7 @@ class MainDisplayerBinding implements Bindings {
   void dependencies() {
     Get.put<MainDisplayerController>(MainDisplayerController());
     Get.lazyPut<HomeController>(() => (HomeController()));
-    Get.lazyPut<CategoryController>(() =>(CategoryController()));
+    Get.lazyPut<CategoryController>(() => (CategoryController()));
     Get.lazyPut<ProfileController>(() => ProfileController());
   }
 }

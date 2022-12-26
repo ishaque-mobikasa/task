@@ -6,10 +6,10 @@ class ProductTileSmall extends StatelessWidget {
   const ProductTileSmall({super.key, required this.model, this.onTap});
 
   final ProductsModel model;
- final  void Function()? onTap;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: onTap ?? () {},
       child: Container(

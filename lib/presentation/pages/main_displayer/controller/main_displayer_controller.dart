@@ -6,11 +6,7 @@ import 'package:task/presentation/pages/profile/profile_view.dart';
 
 class MainDisplayerController extends GetxController {
   RxInt selectedIndex = 0.obs;
-  List<Widget> pages = [
-    const HomeView(),
-    const CategoryView(),
-    const ProfileView()
-  ];
+  List<Widget> pages = [const HomeView(), const CategoryView(), ProfileView()];
 
   Widget get currentWidget => pages[selectedIndex.value];
   setIndex(index) {

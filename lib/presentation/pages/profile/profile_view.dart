@@ -9,7 +9,23 @@ import 'widgets/double_color_title.dart';
 import 'widgets/name_number_card.dart';
 
 class ProfileView extends GetView<ProfileController> {
-  const ProfileView({Key? key}) : super(key: key);
+  final List<String> gridTitles = [
+    "Edit Profile",
+    "About",
+    "Contact Us",
+    "Share",
+    "Privacy",
+    "Logout"
+  ];
+  final List<IconData> gridIcons = [
+    Icons.manage_accounts,
+    Icons.info,
+    Icons.headset_mic,
+    Icons.share_outlined,
+    Icons.security,
+    Icons.logout
+  ];
+  ProfileView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,51 +66,27 @@ class ProfileView extends GetView<ProfileController> {
                 const SizedBox(
                   height: 10,
                 ),
-                GridView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 1.2,
-                  ),
-                  children: [
-                    AccountGridItem(
-                      icon: Icons.manage_accounts,
-                      title: 'Edit Profile',
-                      onTap: () {
-                        Get.toNamed(Routes.editProfileScreen);
-                      },
+                GridView.builder(
+                    itemCount: 6,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: 1.2,
                     ),
-                    AccountGridItem(
-                      icon: Icons.info,
-                      title: 'About',
-                      onTap: () {},
-                    ),
-                    AccountGridItem(
-                      icon: Icons.headset_mic,
-                      title: 'Contact us',
-                      onTap: () {},
-                    ),
-                    AccountGridItem(
-                      icon: Icons.share_outlined,
-                      title: 'Share',
-                      onTap: () {},
-                    ),
-                    Obx(() => AccountGridItem(
-                          icon: Icons.security,
-                          title: controller.userData.value.state,
-                          onTap: () {},
-                        )),
-                    AccountGridItem(
-                        icon: Icons.logout,
-                        title: 'Logout',
-                        onTap: () {
-                          controller.onLogoutButtonClick();
-                        }),
-                  ],
-                )
+                    itemBuilder: (context, index) {
+                      return AccountGridItem(
+                          icon: gridIcons[index],
+                          title: gridTitles[index],
+                          onTap: () => index == 0
+                              ? Get.toNamed(Routes.editProfileScreen)
+                              : index == 5
+                                  ? controller.onLogoutButtonClick()
+                                  : null);
+                    })
               ],
             ),
           ),
