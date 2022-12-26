@@ -20,7 +20,7 @@ class ProductDetailsPage extends StatelessWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: ProductCard(product: product),
+          child: ProductCard(product: product,onTap: ()=>{},),
         ),
       ),
     );

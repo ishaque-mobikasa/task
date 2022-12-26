@@ -14,28 +14,14 @@ class CategoryView extends GetView<CategoryController> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     Get.put(HomeController());
-    return controller.homeController.productsList.isEmpty
-        ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    "oops!!..Some thing went wrong",
-                    style: CustomStyle.style,
-                  ),
-                ],
-              ),
-            ],
-          )
-        : Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: size.height * 0.5,
-                child: Center(
-                  child: (GridView.builder(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: size.height * 0.5,
+          child: Obx(() => Center(
+              child: controller.homeController.productsList.isNotEmpty
+                  ? GridView.builder(
                       shrinkWrap: true,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
@@ -58,10 +44,29 @@ class CategoryView extends GetView<CategoryController> {
                               bottomText:
                                   controller.categoryList[index].toUpperCase(),
                             ));
-                      })),
-                ),
-              ),
-            ],
-          );
+                      })
+                  : Obx(() => Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                "oops!!..Some thing went wrong",
+                                style: CustomStyle.style,
+                              ),
+                            ],
+                          ),
+                          controller.homeController.isLoading.value
+                              ? const CircularProgressIndicator()
+                              : ElevatedButton(
+                                  onPressed: () =>
+                                      controller.homeController.fetchAllitems(),
+                                  child: const Text("Retry")),
+                        ],
+                      )))),
+        ),
+      ],
+    );
   }
 }

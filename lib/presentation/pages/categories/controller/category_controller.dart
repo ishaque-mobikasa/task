@@ -6,7 +6,7 @@ import 'package:task/presentation/pages/home_screen/controller/home_controller.d
 class CategoryController extends GetxController {
   @override
   void onInit() {
-    productListCategoriser();
+    homeController = Get.put(HomeController());
     super.onInit();
   }
 
@@ -17,7 +17,7 @@ class CategoryController extends GetxController {
     CustomStrings.womensClothing,
   ];
 
-  HomeController homeController = Get.put(HomeController());
+  HomeController homeController = Get.find<HomeController>();
   RxList<ProductsModel> electronics = <ProductsModel>[].obs;
   RxList<ProductsModel> jewelery = <ProductsModel>[].obs;
   RxList<ProductsModel> mensClothing = <ProductsModel>[].obs;
@@ -25,17 +25,27 @@ class CategoryController extends GetxController {
 
   productListCategoriser() {
     if (homeController.productsList.isNotEmpty) {
-      for (var element in homeController.productsList) {
-        if (element.category == CustomStrings.electronics) {
-          electronics.add(element);
-        } else if (element.category == CustomStrings.jewelery) {
-          jewelery.add(element);
-        } else if (element.category == CustomStrings.mensClothing) {
-          mensClothing.add(element);
-        } else {
-          womensClothing.add(element);
-        }
-      }
+      electronics
+        ..clear()
+        ..addAll(homeController.productsList
+            .where((product) => product.category == CustomStrings.electronics)
+            .toList());
+      jewelery
+        ..clear()
+        ..addAll(homeController.productsList
+            .where((product) => product.category == CustomStrings.jewelery)
+            .toList());
+      mensClothing
+        ..clear()
+        ..addAll(homeController.productsList
+            .where((product) => product.category == CustomStrings.mensClothing)
+            .toList());
+      womensClothing
+        ..clear()
+        ..addAll(homeController.productsList
+            .where(
+                (product) => product.category == CustomStrings.womensClothing)
+            .toList());
     } else {
       return;
     }

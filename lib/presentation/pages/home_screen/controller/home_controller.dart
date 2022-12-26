@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:task/data/models/products/product_model.dart';
 import 'package:task/domain/repositories/home_repo/home_repository.dart';
+import 'package:task/presentation/pages/categories/controller/category_controller.dart';
 
 class HomeController extends GetxController {
   RxList<ProductsModel> productsList = <ProductsModel>[].obs;
@@ -18,6 +19,7 @@ class HomeController extends GetxController {
     try {
       isLoading.value = true;
       productsList.value = await HomeRepository.fetchAllProducts();
+      Get.find<CategoryController>().productListCategoriser();
       productsList.shuffle();
     } finally {
       isLoading.value = false;
