@@ -17,9 +17,20 @@ class CategoryView extends GetView<CategoryController> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(
+        AppBar(
+          title: const Text(
+            "C A T E G O R I E S",
+            style: CustomStyle.style,
+          ),
+          centerTitle: true,
+        ),
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: const BoxDecoration(
+            shape: BoxShape.rectangle,
+          ),
           height: size.height * 0.5,
           child: Obx(() => Center(
               child: controller.categoryNameList.isNotEmpty
@@ -77,26 +88,38 @@ class CategoryView extends GetView<CategoryController> {
                                   .toUpperCase(),
                             ));
                       })
-                  : Obx(() => Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
+                  : controller.isLoading.value
+                      ? Center(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  "Please wait while fetching the data..",
+                                  style: CustomStyle.style,
+                                ),
+                                CircularProgressIndicator()
+                              ]),
+                        )
+                      : Obx(() => Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
-                                "oops!!..Some thing went wrong ",
-                                style: CustomStyle.style,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text(
+                                    "oops!! server unreachable..Click to retry...",
+                                    style: CustomStyle.style,
+                                  ),
+                                ],
                               ),
+                              controller.isLoading.value
+                                  ? const CircularProgressIndicator()
+                                  : ElevatedButton(
+                                      onPressed: () =>
+                                          controller.categoryListPopulator(),
+                                      child: const Text("Retry")),
                             ],
-                          ),
-                          controller.isLoading.value
-                              ? const CircularProgressIndicator()
-                              : ElevatedButton(
-                                  onPressed: () =>
-                                      controller.categoryListPopulator(),
-                                  child: const Text("Retry")),
-                        ],
-                      )))),
+                          )))),
         ),
       ],
     );

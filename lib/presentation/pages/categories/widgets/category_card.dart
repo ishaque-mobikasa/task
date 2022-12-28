@@ -30,7 +30,8 @@ class CategoryCard extends StatelessWidget {
         margin: const EdgeInsetsDirectional.all(10),
         height: size.height * 0.3,
         width: size.width * 0.5,
-        decoration: BoxDecoration(border: Border.all()),
+        decoration:
+            BoxDecoration(border: Border.all(), shape: BoxShape.rectangle),
         child: LayoutBuilder(
             builder: (ctx, cstr) => Stack(
                   children: [
