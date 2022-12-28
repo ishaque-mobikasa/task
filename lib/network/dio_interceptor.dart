@@ -1,24 +1,17 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:task/network/request_retrier.dart';
 
 class DioInterceptor extends Interceptor {
-  RequestRetrier requestRetrier;
-  DioInterceptor({required this.requestRetrier});
+  // RequestRetrier requestRetrier;
+  // DioInterceptor({required this.requestRetrier});
   @override
-  Future<Response> onError(
-      DioError err, ErrorInterceptorHandler handler) async {
+  Future onError(DioError err, ErrorInterceptorHandler handler) async {
     if (_shouldRetry(err)) {
-      log("Erro handler is intercepting now");
-      final response =
-          await requestRetrier.schedulerRequestRetry(err.requestOptions);
-      handler.resolve(response);
+      handler.resolve(Response(requestOptions: err.requestOptions));
+    } else {
+      handler.resolve(Response(requestOptions: err.requestOptions, data: []));
     }
-    
-
-    return Response(requestOptions: err.requestOptions, data: []);
   }
 
   bool _shouldRetry(DioError err) {
