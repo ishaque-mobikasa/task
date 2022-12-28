@@ -1,9 +1,5 @@
 import 'package:get/get.dart';
-import 'package:task/app/utils/custom_strings.dart';
-import 'package:task/data/models/products/product_model.dart';
 import 'package:task/domain/repositories/category_repo/category_repo.dart';
-import 'package:task/domain/repositories/home_repo/home_repository.dart';
-import 'package:task/presentation/pages/home_screen/controller/home_controller.dart';
 
 class CategoryController extends GetxController {
   @override
@@ -15,7 +11,6 @@ class CategoryController extends GetxController {
   RxBool isLoading = true.obs;
   RxList<String> categoryNameList = <String>[].obs;
 
- 
   // HomeController homeController = Get.find<HomeController>();
   // RxList<ProductsModel> electronics = <ProductsModel>[].obs;
   // RxList<ProductsModel> jewelery = <ProductsModel>[].obs;
@@ -62,6 +57,4 @@ class CategoryController extends GetxController {
       isLoading.value = false;
     }
   }
-
-  
 }
