@@ -21,4 +21,12 @@ class CustomStrings {
   static String electronicsUrl = "products/category/electronics";
   static String mensClothingUrl = "products/category/men's clothing";
   static String womensClothingUrl = "products/category/women's clothing";
+  static String mensClothingImage =
+      "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg";
+  static String womensClothingImage =
+      "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg";
+  static String jeweleryImage =
+      "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg";
+  static String electronicsImage =
+      "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg";
 }

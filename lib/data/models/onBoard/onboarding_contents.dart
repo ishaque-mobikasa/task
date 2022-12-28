@@ -1,4 +1,3 @@
-
 import 'onboarding_contents_model.dart';
 
 List<OnboadingContents> contents = [

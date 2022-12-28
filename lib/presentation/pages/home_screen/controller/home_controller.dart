@@ -6,7 +6,7 @@ class HomeController extends GetxController {
   RxList<ProductsModel> productsList = <ProductsModel>[].obs;
   RxBool isLoading = true.obs;
   RxInt dotsIndex = 0.obs;
-  // Rx<PageController> dotsController = PageController().obs;
+
   @override
   void onInit() {
     fetchAllitems();

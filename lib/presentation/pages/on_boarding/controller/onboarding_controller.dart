@@ -6,6 +6,6 @@ class OnBoardingController extends GetxController {
   Rx<PageController> controller = PageController().obs;
 
   indexSetter(int newIndex) {
-    currentIndex.value = newIndex;   
+    currentIndex.value = newIndex;
   }
 }

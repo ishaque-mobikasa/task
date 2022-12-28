@@ -29,7 +29,7 @@ class CustomFormField extends StatelessWidget {
       this.icon = Icons.email});
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    var height = MediaQuery.of(context).size.height;
     return Padding(
       padding: padding,
       child: TextFormField(

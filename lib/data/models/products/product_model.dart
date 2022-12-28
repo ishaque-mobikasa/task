@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final productsModel = productsModelFromJson(jsonString);
-
 List<ProductsModel> productsModelFromJson(str) => List<ProductsModel>.from(
     str.map((x) => ProductsModel.fromJson(x)).toList());
 

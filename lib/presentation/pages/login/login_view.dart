@@ -14,8 +14,7 @@ class LoginScreen extends GetView<LoginController> {
   const LoginScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    //final controller = Get.put(LoginController());
-    final size = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
       body: SingleChildScrollView(

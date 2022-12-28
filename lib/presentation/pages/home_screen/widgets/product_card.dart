@@ -5,12 +5,12 @@ import 'package:task/app/utils/themes.dart';
 import 'package:task/data/models/products/product_model.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.model});
-  final ProductsModel model;
-
+  const ProductCard({super.key, required this.product, required this.onTap});
+  final ProductsModel product;
+  final void Function() onTap;
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
     return GestureDetector(
       child: Column(children: [
         SizedBox(
@@ -20,7 +20,7 @@ class ProductCard extends StatelessWidget {
                 topLeft: Radius.circular(15), topRight: Radius.circular(15)),
             child: FittedBox(
               child: Image.network(
-                model.image.toString(),
+                product.image.toString(),
                 loadingBuilder: (context, child, loadingProgress) {
                   return loadingProgress == null
                       ? child
@@ -45,7 +45,7 @@ class ProductCard extends StatelessWidget {
             color: CustomColors.blackColor,
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
             child: Text(
-              model.title.toString(),
+              product.title.toString(),
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 15,
@@ -58,7 +58,7 @@ class ProductCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(15.0),
           child: Text(
-            model.description.toString(),
+            product.description.toString(),
             maxLines: 4,
             style: CustomStyle.style.copyWith(),
           ),
@@ -78,7 +78,7 @@ class ProductCard extends StatelessWidget {
                     const SizedBox(
                       width: 6,
                     ),
-                    Text("${model.rating!.rate} K Comments"),
+                    Text("${product.rating!.rate} K Comments"),
                   ],
                 ),
                 Row(
@@ -90,7 +90,7 @@ class ProductCard extends StatelessWidget {
                     const SizedBox(
                       width: 6,
                     ),
-                    Text(model.rating!.count.toString())
+                    Text(product.rating!.count.toString())
                   ],
                 ),
                 Row(
@@ -103,7 +103,7 @@ class ProductCard extends StatelessWidget {
                       width: 6,
                     ),
                     Text(
-                      model.price.toString(),
+                      product.price.toString(),
                       style: CustomStyle.style
                           .copyWith(color: CustomColors.blackColor),
                     )
@@ -125,7 +125,7 @@ class ProductCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       color: CustomColors.themeColor),
                   child: TextButton(
-                      onPressed: () => {},
+                      onPressed: onTap,
                       child: Text("Add to Cart",
                           style: CustomStyle.style.copyWith(
                               color: CustomColors.whiteColor, fontSize: 25))),

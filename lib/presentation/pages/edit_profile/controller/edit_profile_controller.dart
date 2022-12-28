@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -19,7 +20,7 @@ class EditProfileController extends GetxController {
           city: "city",
           state: "state")
       .obs;
-  final editKey = GlobalKey<FormState>().obs;
+  var editKey = GlobalKey<FormState>().obs;
   RxBool isEnabled = false.obs;
   final RxBool isObscured = true.obs;
   ProfileController profileController = Get.put(ProfileController());
@@ -29,9 +30,10 @@ class EditProfileController extends GetxController {
   @override
   void onInit() async {
     preferences = await SharedPreferences.getInstance();
-    final data = preferences.getString(CustomStrings.loggedInUserkey);
+    var data = preferences.getString(CustomStrings.loggedInUserkey);
     model.value = UserModel.fromJson(
         jsonDecode(preferences.getString(data.toString()).toString()));
+    log(model.value.toString());
     stateController.value = TextEditingController(text: model.value.state);
     cityController.value = TextEditingController(text: model.value.city);
     super.onInit();
@@ -47,7 +49,15 @@ class EditProfileController extends GetxController {
 
   onUpdateButtonPressed() {
     if (editKey.value.currentState!.validate()) {
-      preferences.setString(model.value.email, jsonEncode(model.toJson()));
+      model.value = UserModel(
+          email: model.value.email,
+          city: cityController.value.text,
+          state: stateController.value.text,
+          phoneNumber: model.value.phoneNumber,
+          password: model.value.password,
+          image: model.value.image);
+      var data = preferences.getString(CustomStrings.loggedInUserkey);
+      preferences.setString(data.toString(), jsonEncode(model.toJson()));
       profileController.userData.value = model.value;
       Get.back();
     } else {
