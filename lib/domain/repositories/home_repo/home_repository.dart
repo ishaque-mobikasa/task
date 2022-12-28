@@ -15,26 +15,4 @@ class HomeRepository {
     return [];
   }
 
-  static Future<List<ProductsModel>> fetchAllProductsCategoryWise(
-      CategoryType categoryType) async {
-    Response response;
-    switch (categoryType) {
-      case CategoryType.jewelery:
-        response = await DioService.getMethod(url: CustomStrings.jewelery);
-        break;
-      case CategoryType.electronics:
-        response = await DioService.getMethod(url: CustomStrings.electronics);
-        break;
-      case CategoryType.mensClothing:
-        response = await DioService.getMethod(url: CustomStrings.mensClothing);
-        break;
-      case CategoryType.womensClothing:
-        response = await DioService.getMethod(url: CustomStrings.mensClothing);
-    }
-    if (response.statusCode == 200) {
-      return productsModelFromJson(response.data);
-    } else {
-      return [];
-    }
-  }
 }

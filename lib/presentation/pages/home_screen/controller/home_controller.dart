@@ -19,7 +19,6 @@ class HomeController extends GetxController {
     try {
       isLoading.value = true;
       productsList.value = await HomeRepository.fetchAllProducts();
-      Get.find<CategoryController>().productListCategoriser();
       productsList.shuffle();
     } finally {
       isLoading.value = false;

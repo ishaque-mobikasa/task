@@ -9,6 +9,7 @@ class DioService {
             // requestRetrier:
             //     RequestRetrier(connectivity: Connectivity(), dio: Dio())
             ));
+
   static Future<dynamic> postMethod(
       {required String url, required value}) async {
     return await dio.post(url, data: value).then((value) => value);

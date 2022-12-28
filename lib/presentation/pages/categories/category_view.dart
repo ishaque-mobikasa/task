@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task/app/utils/custom_strings.dart';
 import 'package:task/app/utils/themes.dart';
 import 'package:task/core/routes.dart';
+import 'package:task/data/models/products/product_model.dart';
+import 'package:task/domain/repositories/home_repo/home_repository.dart';
 import 'package:task/presentation/pages/categories/controller/category_controller.dart';
-import 'package:task/presentation/pages/home_screen/controller/home_controller.dart';
+import 'package:task/presentation/pages/category_listing/controller/category_listing_controller.dart';
 
 import 'widgets/category_card.dart';
 
@@ -13,14 +16,13 @@ class CategoryView extends GetView<CategoryController> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    Get.put(HomeController());
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
           height: size.height * 0.5,
           child: Obx(() => Center(
-              child: controller.homeController.productsList.isNotEmpty
+              child: controller.categoryNameList.isNotEmpty
                   ? GridView.builder(
                       shrinkWrap: true,
                       gridDelegate:
@@ -28,21 +30,51 @@ class CategoryView extends GetView<CategoryController> {
                         crossAxisCount: 2,
                       ),
                       scrollDirection: Axis.horizontal,
-                      itemCount: 4,
+                      itemCount: controller.categoryNameList.length,
                       itemBuilder: (context, index) {
                         return Obx(() => CategoryCard(
-                              onTap: () => Get.toNamed(
-                                  Routes.categoryListingScreen,
-                                  arguments: controller.categoryList[index]),
+                              onTap: () {
+                                var ctrlr =
+                                    Get.put(CategoryListingController());
+                                index == 0
+                                    ? ctrlr.fetchProductCategoryWise(
+                                        CategoryType.electronics)
+                                    : index == 1
+                                        ? ctrlr.fetchProductCategoryWise(
+                                            CategoryType.jewelery)
+                                        : index == 2
+                                            ? ctrlr.fetchProductCategoryWise(
+                                                CategoryType.mensClothing)
+                                            : ctrlr.fetchProductCategoryWise(
+                                                CategoryType.womensClothing);
+                                Get.toNamed(Routes.categoryListingScreen,
+                                    arguments: index == 0
+                                        ? CategoryType.electronics
+                                        : index == 1
+                                            ? CategoryType.jewelery
+                                            : index == 2
+                                                ? CategoryType.mensClothing
+                                                : CategoryType.womensClothing);
+                              },
                               productsModel: index == 0
-                                  ? controller.electronics.last
+                                  ? ProductsModel(
+                                      category: "Electronics",
+                                      image: CustomStrings.electronicsImage)
                                   : index == 1
-                                      ? controller.jewelery.last
+                                      ? ProductsModel(
+                                          category: "Jewelery",
+                                          image: CustomStrings.jeweleryImage)
                                       : index == 2
-                                          ? controller.mensClothing.last
-                                          : controller.womensClothing.first,
-                              bottomText:
-                                  controller.categoryList[index].toUpperCase(),
+                                          ? ProductsModel(
+                                              category: "Mens Clothing",
+                                              image: CustomStrings
+                                                  .mensClothingImage)
+                                          : ProductsModel(
+                                              category: "Womens clothing",
+                                              image: CustomStrings
+                                                  .womensClothingImage),
+                              bottomText: controller.categoryNameList[index]
+                                  .toUpperCase(),
                             ));
                       })
                   : Obx(() => Column(
@@ -52,16 +84,16 @@ class CategoryView extends GetView<CategoryController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
                               Text(
-                                "oops!!..Some thing went wrong",
+                                "oops!!..Some thing went wrong ",
                                 style: CustomStyle.style,
                               ),
                             ],
                           ),
-                          controller.homeController.isLoading.value
+                          controller.isLoading.value
                               ? const CircularProgressIndicator()
                               : ElevatedButton(
                                   onPressed: () =>
-                                      controller.homeController.fetchAllitems(),
+                                      controller.categoryListPopulator(),
                                   child: const Text("Retry")),
                         ],
                       )))),

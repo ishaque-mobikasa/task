@@ -6,9 +6,9 @@ class DioInterceptor extends Interceptor {
   // RequestRetrier requestRetrier;
   // DioInterceptor({required this.requestRetrier});
   @override
-  Future onError(DioError err, ErrorInterceptorHandler handler) async {
+  void onError(DioError err, ErrorInterceptorHandler handler) async {
     if (_shouldRetry(err)) {
-      handler.resolve(Response(requestOptions: err.requestOptions));
+      handler.resolve(Response(requestOptions: err.requestOptions, data: []));
     } else {
       handler.resolve(Response(requestOptions: err.requestOptions, data: []));
     }
