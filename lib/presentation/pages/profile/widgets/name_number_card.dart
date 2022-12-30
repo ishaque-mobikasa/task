@@ -19,6 +19,7 @@ class NameNumberCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -47,9 +48,12 @@ class NameNumberCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TitleWidget(
-                      text: nameText,
-                      fontSize: 20,
+                    SizedBox(
+                      width: size.width * 0.5,
+                      child: TitleWidget(
+                        text: nameText,
+                        fontSize: 20,
+                      ),
                     ),
                     const SizedBox(
                       height: 5,

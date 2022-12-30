@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/app/utils/app_colors.dart';
@@ -36,8 +36,10 @@ class ProfileController extends GetxController {
       onCancel: () => Get.back(),
       onConfirm: () {
         preferences.setBool(CustomStrings.isLoggedIn, false);
+
         Get.offNamedUntil(Routes.loginScreen, (route) => false);
       },
     );
+    await FirebaseAuth.instance.signOut();
   }
 }
