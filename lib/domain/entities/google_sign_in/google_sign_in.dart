@@ -18,8 +18,8 @@ class GoogleSignInRepo {
             accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
         UserCredential userCredential =
             await FirebaseAuth.instance.signInWithCredential(credentials);
+
         log(userCredential.user!.toString());
-       
         return userCredential;
       }
     } on Exception catch (e) {
