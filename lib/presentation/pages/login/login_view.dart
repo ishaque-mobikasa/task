@@ -19,102 +19,120 @@ class LoginScreen extends GetView<LoginController> {
         child: Scaffold(
       body: SingleChildScrollView(
           child: Obx(
-        () => Form(
-          key: controller.loginKey.value,
-          onChanged: () => controller.toggleLoginButton(),
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Column(children: [
-              Container(
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/images/login.jpg"),
-                        fit: BoxFit.cover)),
-                height: size.height * 0.4,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: CustomFormField(
-                    type: FieldType.eMail,
-                    controller: controller.emailController.value,
-                  )),
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Obx(() => CustomFormField(
-                        obscureText: controller.isObscured.value,
-                        hintText: "Password",
-                        type: FieldType.password,
-                        icon: Icons.password,
-                        controller: controller.passwordController.value,
-                        postFixIcon: controller.isObscured.value == true
-                            ? null
-                            : Icons.visibility,
-                        toggleVisibility: () =>
-                            controller.togglePasswordVisibility(),
-                      ))),
-              const SizedBox(
-                height: 50,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                      child: SizedBox(
-                    height: 50,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Obx((() => ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              )),
-                          onPressed: controller.isEnabled.value == true
-                              ? () {
-                                  controller.onLoginButtonPress();
-                                }
-                              : null,
-                          child: const Text(
-                            "Login",
-                            style: TextStyle(fontSize: 20),
-                          )))),
+        () => controller.isLoading.value
+            ? SizedBox(
+                height: size.height,
+                child: Center(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                      Text("Please wait while connecting to Google"),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      CircularProgressIndicator()
+                    ])))
+            : Form(
+                key: controller.loginKey.value,
+                onChanged: () => controller.toggleLoginButton(),
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Column(children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/images/login.jpg"),
+                              fit: BoxFit.cover)),
+                      height: size.height * 0.4,
                     ),
-                  )),
-                ],
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: CustomFormField(
+                          type: FieldType.eMail,
+                          controller: controller.emailController.value,
+                        )),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Obx(() => CustomFormField(
+                              obscureText: controller.isObscured.value,
+                              hintText: "Password",
+                              type: FieldType.password,
+                              icon: Icons.password,
+                              controller: controller.passwordController.value,
+                              postFixIcon: controller.isObscured.value == true
+                                  ? null
+                                  : Icons.visibility,
+                              toggleVisibility: () =>
+                                  controller.togglePasswordVisibility(),
+                            ))),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: SizedBox(
+                          height: 50,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            child: Obx((() => ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.black,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    )),
+                                onPressed: controller.isEnabled.value == true
+                                    ? () {
+                                        controller.onLoginButtonPress();
+                                      }
+                                    : null,
+                                child: const Text(
+                                  "Login",
+                                  style: TextStyle(fontSize: 20),
+                                )))),
+                          ),
+                        )),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const Text(
+                      "OR",
+                      style: CustomStyle.style,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CustomWidgets.socialButtonCircle(
+                            CustomColors.googleColor,
+                            FontAwesomeIcons.googlePlusG,
+                            iconColor: Colors.white, onTap: () async {
+                          controller.onLoginWithGoogle();
+                        }),
+                        CustomWidgets.socialButtonCircle(
+                            CustomColors.facebookColor,
+                            FontAwesomeIcons.facebookF,
+                            iconColor: Colors.white,
+                            onTap: () {}),
+                      ],
+                    ),
+                    const SizedBox(height: CustomDimensions.height20),
+                    TextButton(
+                        onPressed: () {
+                          Get.offNamed(Routes.signUpScreen);
+                        },
+                        child: const Text("Dont have an Account? SignUp here."))
+                  ]),
+                ),
               ),
-              const SizedBox(
-                height: 30,
-              ),
-              const Text(
-                "OR",
-                style: CustomStyle.style,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CustomWidgets.socialButtonCircle(
-                      CustomColors.googleColor, FontAwesomeIcons.googlePlusG,
-                      iconColor: Colors.white, onTap: () {}),
-                  CustomWidgets.socialButtonCircle(
-                      CustomColors.facebookColor, FontAwesomeIcons.facebookF,
-                      iconColor: Colors.white, onTap: () {}),
-                ],
-              ),
-              const SizedBox(height: CustomDimensions.height20),
-              TextButton(
-                  onPressed: () {
-                    Get.offNamed(Routes.signUpScreen);
-                  },
-                  child: const Text("Dont have an Account? SignUp here."))
-            ]),
-          ),
-        ),
       )),
     ));
   }

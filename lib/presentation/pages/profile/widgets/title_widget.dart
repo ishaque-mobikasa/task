@@ -15,14 +15,17 @@ class TitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyle(
-          color: color,
-          fontSize: fontSize,
-          fontWeight: FontWeight.bold,
-          letterSpacing: 1,
-          overflow: TextOverflow.ellipsis),
+    return SizedBox(
+      child: Text(
+        text,
+        maxLines: 1,
+        style: TextStyle(
+            color: color,
+            fontSize: fontSize,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1,
+            overflow: TextOverflow.ellipsis),
+      ),
     );
   }
 }
