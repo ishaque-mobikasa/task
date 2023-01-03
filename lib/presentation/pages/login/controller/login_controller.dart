@@ -5,7 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task/app/utils/app_colors.dart';
 import 'package:task/app/utils/custom_strings.dart';
+import 'package:task/app/utils/remote_config_utils.dart';
 import 'package:task/core/routes.dart';
 import 'package:task/data/models/user/user_model.dart';
 import 'package:task/domain/entities/google_sign_in/google_sign_in.dart';
@@ -38,6 +40,21 @@ class LoginController extends GetxController {
           Get.snackbar(
               CustomStrings.validCredentials, CustomStrings.loginSuccess);
           Get.offNamed(Routes.mainDisplayer);
+          if (RemoteConfigUtils.hasUpdate) {
+            Get.showSnackbar(GetSnackBar(
+              titleText: Text(RemoteConfigUtils.serverString,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: CustomColors.whiteColor)),
+              snackStyle: SnackStyle.GROUNDED,
+              duration: const Duration(seconds: 3),
+              dismissDirection: DismissDirection.endToStart,
+              messageText: const Text(
+                "Please Update to the latest version",
+                textAlign: TextAlign.center,
+                style: TextStyle(color: CustomColors.whiteColor),
+              ),
+            ));
+          }
         } else {
           Get.snackbar(CustomStrings.invalidCredentials, "Try  again");
           return;

@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task/app/utils/app_colors.dart';
 import 'package:task/app/utils/custom_strings.dart';
+import 'package:task/app/utils/remote_config_utils.dart';
 import 'package:task/domain/entities/firebase/remote_config.dart';
 
 import '../../../core/routes.dart';
@@ -62,7 +64,26 @@ checkIsloggedIn() async {
   bool isLogged = preferences.getBool(CustomStrings.isLoggedIn) ?? false;
   if (isLogged) {
     Timer(
-        const Duration(seconds: 2), () => {Get.offNamed(Routes.mainDisplayer)});
+        const Duration(seconds: 2),
+        () => {
+              Get.offNamed(Routes.mainDisplayer),
+              if (RemoteConfigUtils.hasUpdate)
+                {
+                  Get.showSnackbar(GetSnackBar(
+                    titleText: Text(RemoteConfigUtils.serverString,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(color: CustomColors.whiteColor)),
+                    snackStyle: SnackStyle.GROUNDED,
+                    duration: const Duration(seconds: 3),
+                    dismissDirection: DismissDirection.endToStart,
+                    messageText: const Text(
+                      "Please Update to the latest version",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: CustomColors.whiteColor),
+                    ),
+                  ))
+                }
+            });
   } else {
     Timer(const Duration(seconds: 2), () => {Get.offNamed(Routes.onBoard)});
   }
