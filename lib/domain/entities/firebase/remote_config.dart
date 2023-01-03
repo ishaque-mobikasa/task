@@ -5,7 +5,7 @@ class RemoteConfigServices {
       FirebaseRemoteConfig.instance;
   static Future<FirebaseRemoteConfig> fetchRemoteConfigData() async {
     try {
-      _remoteConfig.setDefaults({"updateMessage": "","hasUpdate":false});
+      _remoteConfig.setDefaults({"appVersion": "","hasUpdate":false,"updateMessage":""});
       await _remoteConfig.setConfigSettings(RemoteConfigSettings(
           fetchTimeout: const Duration(seconds: 10),
           minimumFetchInterval: Duration.zero));
@@ -20,6 +20,11 @@ class RemoteConfigServices {
   static String fetchServerStringValue(String key) {
     return _remoteConfig.getString(key);
   }
+
+    static double fetchServerNumValue(String key) {
+    return _remoteConfig.getDouble(key);
+  }
+
    static bool fetchServerboolValue(String key) {
     return _remoteConfig.getBool(key);
   }

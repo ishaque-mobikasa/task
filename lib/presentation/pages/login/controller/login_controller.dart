@@ -40,7 +40,7 @@ class LoginController extends GetxController {
           Get.snackbar(
               CustomStrings.validCredentials, CustomStrings.loginSuccess);
           Get.offNamed(Routes.mainDisplayer);
-          if (RemoteConfigUtils.hasUpdate) {
+          if (RemoteConfigUtils.showBanner) {
             Get.showSnackbar(GetSnackBar(
               titleText: Text(RemoteConfigUtils.serverString,
                   textAlign: TextAlign.center,

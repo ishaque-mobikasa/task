@@ -61,13 +61,14 @@ class _SplashScreenState extends State<SplashScreen> {
 checkIsloggedIn() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
   await RemoteConfigServices.fetchRemoteConfigData();
+  RemoteConfigUtils.checkPackageVersion();
   bool isLogged = preferences.getBool(CustomStrings.isLoggedIn) ?? false;
   if (isLogged) {
     Timer(
         const Duration(seconds: 2),
         () => {
               Get.offNamed(Routes.mainDisplayer),
-              if (RemoteConfigUtils.hasUpdate)
+              if (RemoteConfigUtils.showBanner)
                 {
                   Get.showSnackbar(GetSnackBar(
                     titleText: Text(RemoteConfigUtils.serverString,
