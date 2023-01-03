@@ -75,12 +75,12 @@ checkIsloggedIn() async {
                         textAlign: TextAlign.center,
                         style: const TextStyle(color: CustomColors.whiteColor)),
                     snackStyle: SnackStyle.GROUNDED,
-                    duration: const Duration(seconds: 3),
+                    duration: const Duration(seconds: 5),
                     dismissDirection: DismissDirection.endToStart,
-                    messageText: const Text(
-                      "Please Update to the latest version",
+                    messageText: Text(
+                      "Please Update to the latest version V${RemoteConfigUtils.appVersion}",
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: CustomColors.whiteColor),
+                      style: const TextStyle(color: CustomColors.whiteColor),
                     ),
                   ))
                 }
