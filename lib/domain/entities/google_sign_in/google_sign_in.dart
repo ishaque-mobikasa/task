@@ -22,7 +22,10 @@ class GoogleSignInRepo {
         log(userCredential.user!.toString());
         return userCredential;
       }
-    } on Exception catch (e) {
+    } on FirebaseAuthException catch (e) {
+      log(e.message.toString());
+      return null;
+    }on Exception catch (e) {
       log(e.toString());
       return null;
     }

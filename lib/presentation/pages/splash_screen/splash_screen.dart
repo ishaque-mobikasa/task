@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/app/utils/custom_strings.dart';
+import 'package:task/domain/entities/firebase/remote_config.dart';
 
 import '../../../core/routes.dart';
 import 'widget/splash_text.dart';
@@ -57,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
 checkIsloggedIn() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
-
+  await RemoteConfigServices.fetchRemoteConfigData();
   bool isLogged = preferences.getBool(CustomStrings.isLoggedIn) ?? false;
   if (isLogged) {
     Timer(

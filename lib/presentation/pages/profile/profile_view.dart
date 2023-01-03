@@ -36,7 +36,7 @@ class ProfileView extends GetView<ProfileController> {
           SizedBox(
             height: size.height * 0.3,
             width: size.width,
-            child: const ColoredBox(
+            child: ColoredBox(
               color: CustomColors.themeColor,
             ),
           ),
@@ -48,8 +48,8 @@ class ProfileView extends GetView<ProfileController> {
                 const SizedBox(
                   height: 10,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 8.0),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
                   child: DoubleColorTitle(
                     text1: 'My',
                     text2: 'Account',

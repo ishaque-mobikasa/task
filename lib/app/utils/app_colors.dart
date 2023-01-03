@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomColors {
-  static const Color themeColor = Colors.deepPurple;
-  static const Color facebookColor = Color(0xff39579A);
+  static Color themeColor = Colors.deepPurple;
+  static const Color facebookColor = Color.fromRGBO(57, 87, 154, 1);
   static const Color twitterColor = Color(0xff00ABEA);
   static const Color instaColor = Color(0xffBE2289);
   static const Color whatsappColor = Color(0xff075E54);
