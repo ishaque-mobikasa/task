@@ -31,15 +31,18 @@ environment:
 dependencies:
   animated_bottom_navigation_bar: ^1.1.0
   carousel_slider: ^4.2.0
+  cloud_firestore: ^4.3.1
   connectivity_plus: ^3.0.2
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
   firebase_auth: ^4.2.4
   firebase_core: ^2.4.1
   firebase_crashlytics: ^3.0.9
+  firebase_messaging: ^14.2.1
   firebase_remote_config: ^3.0.9
   flutter:
     sdk: flutter
+  flutter_local_notifications: ^13.0.0
   font_awesome_flutter: ^10.3.0
   get: ^4.6.5
   get_storage: ^2.0.3

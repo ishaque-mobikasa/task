@@ -65,7 +65,7 @@ checkIsloggedIn() async {
   bool isLogged = preferences.getBool(CustomStrings.isLoggedIn) ?? false;
   if (isLogged) {
     Timer(
-        const Duration(seconds: 2),
+        const Duration(seconds: 1),
         () => {
               Get.offNamed(Routes.mainDisplayer),
               if (RemoteConfigUtils.showBanner)

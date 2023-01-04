@@ -15,7 +15,7 @@ class DoubleColorTitle extends StatelessWidget {
     this.gap = 3,
     this.textSize = 20,
   }) : super(key: key) {
-    firstColor == null ? Colors.deepPurple : CustomColors.themeColor;
+    firstColor ?? (firstColor = Colors.white);
   }
 
   @override
