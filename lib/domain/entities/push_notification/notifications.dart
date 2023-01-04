@@ -87,7 +87,7 @@ class PushNotificationService {
         .getToken()
         .then((value) => FirebaseFirestore.instance
                 .collection("tokens")
-                .doc("token")
+                .doc(pref.getString(CustomStrings.loggedInUserkey))
                 .set({
               pref.getString(CustomStrings.loggedInUserkey).toString(): value
             }))
