@@ -11,6 +11,7 @@ import 'package:task/app/utils/remote_config_utils.dart';
 import 'package:task/core/routes.dart';
 import 'package:task/data/models/user/user_model.dart';
 import 'package:task/domain/entities/google_sign_in/google_sign_in.dart';
+import 'package:task/domain/entities/push_notification/notifications.dart';
 
 class LoginController extends GetxController {
   @override
@@ -27,7 +28,7 @@ class LoginController extends GetxController {
       TextEditingController().obs;
   final RxBool isObscured = true.obs;
   final RxBool isEnabled = false.obs;
-  onLoginButtonPress() {
+  onLoginButtonPress() async {
     if (loginKey.value.currentState!.validate()) {
       String? dataOndisk = preferences.getString(emailController.value.text);
       if (dataOndisk != null) {
@@ -55,6 +56,7 @@ class LoginController extends GetxController {
               ),
             ));
           }
+          await PushNotificationService.requestPermission();
         } else {
           Get.snackbar(CustomStrings.invalidCredentials, "Try  again");
           return;
@@ -121,6 +123,7 @@ class LoginController extends GetxController {
             ),
           ));
         }
+        await PushNotificationService.requestPermission();
       }
     } finally {
       isLoading.value = false;

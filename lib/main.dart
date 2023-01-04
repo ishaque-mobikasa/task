@@ -5,7 +5,6 @@ import 'package:task/domain/entities/push_notification/notifications.dart';
 
 void main() async {
   await PushNotificationService.initializeAllServices();
-  await PushNotificationService.requestPermission();
   runApp(const MyApp());
 }
 

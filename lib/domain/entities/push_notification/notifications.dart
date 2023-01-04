@@ -11,7 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/app/utils/custom_strings.dart';
 
 class PushNotificationService {
-  static late SharedPreferences pref;
   static initializeAllServices() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
@@ -35,11 +34,11 @@ class PushNotificationService {
         criticalAlert: false,
         sound: true,
         provisional: true);
-    await getToken();
-    initialiseLocalNotifications();
+    await _initialiseLocalNotifications();
+    await _getToken();
   }
 
-  static initialiseLocalNotifications() async {
+  static Future _initialiseLocalNotifications() async {
     var androidSettings =
         const AndroidInitializationSettings('@mipmap/ic_launcher');
     var iosSettings = const DarwinInitializationSettings();
@@ -50,7 +49,7 @@ class PushNotificationService {
       onDidReceiveNotificationResponse: (details) {
         try {
           if (details.payload != null) {
-            log("message");
+            log(details.payload.toString());
           }
         } catch (e) {
           return;
@@ -81,16 +80,16 @@ class PushNotificationService {
     }).onError((object, stackTrace) => log("failed to get subscription"));
   }
 
-  static Future getToken() async {
-    pref = await SharedPreferences.getInstance();
+  static Future _getToken() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String userId = pref.getString(CustomStrings.loggedInUserkey).toString();
+    log(userId);
     FirebaseMessaging.instance
         .getToken()
         .then((value) => FirebaseFirestore.instance
-                .collection("tokens")
-                .doc(pref.getString(CustomStrings.loggedInUserkey))
-                .set({
-              pref.getString(CustomStrings.loggedInUserkey).toString(): value
-            }))
+            .collection("tokens")
+            .doc(userId)
+            .set({userId: value}))
         .onError((error, stackTrace) => log(error.toString()));
   }
 }

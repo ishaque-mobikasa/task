@@ -66,7 +66,7 @@ checkIsloggedIn() async {
   if (isLogged) {
     Timer(
         const Duration(seconds: 1),
-        () => {
+        () async => {
               Get.offNamed(Routes.mainDisplayer),
               if (RemoteConfigUtils.showBanner)
                 {
@@ -83,7 +83,7 @@ checkIsloggedIn() async {
                       style: const TextStyle(color: CustomColors.whiteColor),
                     ),
                   ))
-                }
+                },
             });
   } else {
     Timer(const Duration(seconds: 2), () => {Get.offNamed(Routes.onBoard)});
