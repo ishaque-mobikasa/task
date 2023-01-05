@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:task/domain/entities/firebase/remote_config.dart';
 
@@ -17,8 +15,5 @@ class RemoteConfigUtils {
     if (hasUpdate && info.version != appVersion) {
       showBanner = true;
     }
-    log(info.version);
-    log(appVersion);
-    log(showBanner.toString());
   }
 }

@@ -12,11 +12,17 @@ import 'package:task/app/utils/custom_strings.dart';
 
 class PushNotificationService {
   static late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  static Future<void> _backgroundMessageHandler(RemoteMessage message) async {
+    log(message.data.toString());
+  }
+
   static initializeAllServices() async {
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     await FirebaseMessaging.instance.getInitialMessage();
+    FirebaseMessaging.onBackgroundMessage(
+        (message) => _backgroundMessageHandler(message));
     FlutterError.onError = (errorDetails) {
       FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
     };
