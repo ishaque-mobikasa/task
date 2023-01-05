@@ -56,7 +56,7 @@ class LoginController extends GetxController {
               ),
             ));
           }
-          await PushNotificationService.requestPermission();
+          await PushNotificationService.getSetToken();
         } else {
           Get.snackbar(CustomStrings.invalidCredentials, "Try  again");
           return;
@@ -123,7 +123,7 @@ class LoginController extends GetxController {
             ),
           ));
         }
-        await PushNotificationService.requestPermission();
+        await PushNotificationService.getSetToken();
       }
     } finally {
       isLoading.value = false;

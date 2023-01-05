@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:task/data/models/products/product_model.dart';
+import 'package:task/domain/entities/push_notification/notifications.dart';
 import 'package:task/domain/repositories/home_repo/home_repository.dart';
 
 class HomeController extends GetxController {
@@ -8,10 +9,11 @@ class HomeController extends GetxController {
   RxInt dotsIndex = 0.obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     fetchAllitems();
     super.onInit();
     dotsChanger(0);
+    PushNotificationService.requestPermission();
   }
 
   void fetchAllitems() async {

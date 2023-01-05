@@ -14,7 +14,7 @@ class ProfileView extends GetView<ProfileController> {
     "About",
     "Contact Us",
     "Share",
-    "Privacy",
+    "Reset!",
     "Logout"
   ];
   final List<IconData> gridIcons = [
@@ -22,7 +22,7 @@ class ProfileView extends GetView<ProfileController> {
     Icons.info,
     Icons.headset_mic,
     Icons.share_outlined,
-    Icons.security,
+    Icons.delete_forever,
     Icons.logout
   ];
   ProfileView({Key? key}) : super(key: key);
@@ -85,7 +85,9 @@ class ProfileView extends GetView<ProfileController> {
                               ? Get.toNamed(Routes.editProfileScreen)
                               : index == 5
                                   ? controller.onLogoutButtonClick()
-                                  : null);
+                                  : index == 4
+                                      ? controller.onResetButtonClick()
+                                      : null);
                     })
               ],
             ),

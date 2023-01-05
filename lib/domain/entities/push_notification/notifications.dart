@@ -11,7 +11,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/app/utils/custom_strings.dart';
 
 class PushNotificationService {
+  static late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   static initializeAllServices() async {
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     await FirebaseMessaging.instance.getInitialMessage();
@@ -26,7 +28,7 @@ class PushNotificationService {
 
   static Future requestPermission() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
-    NotificationSettings settings = await messaging.requestPermission(
+    await messaging.requestPermission(
         alert: true,
         announcement: true,
         badge: true,
@@ -35,7 +37,7 @@ class PushNotificationService {
         sound: true,
         provisional: true);
     await _initialiseLocalNotifications();
-    await _getToken();
+    log("Settings initialised");
   }
 
   static Future _initialiseLocalNotifications() async {
@@ -44,7 +46,7 @@ class PushNotificationService {
     var iosSettings = const DarwinInitializationSettings();
     var initialisationSettings =
         InitializationSettings(android: androidSettings, iOS: iosSettings);
-    await FlutterLocalNotificationsPlugin().initialize(
+    await flutterLocalNotificationsPlugin.initialize(
       initialisationSettings,
       onDidReceiveNotificationResponse: (details) {
         try {
@@ -71,7 +73,7 @@ class PushNotificationService {
       NotificationDetails platformChannelSpecifics =
           NotificationDetails(android: androidPlatform);
 
-      await FlutterLocalNotificationsPlugin().show(
+      await flutterLocalNotificationsPlugin.show(
           0,
           event.notification!.title.toString(),
           event.notification!.body.toString(),
@@ -80,16 +82,17 @@ class PushNotificationService {
     }).onError((object, stackTrace) => log("failed to get subscription"));
   }
 
-  static Future _getToken() async {
+  static Future getSetToken() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String userId = pref.getString(CustomStrings.loggedInUserkey).toString();
-    log(userId);
-    FirebaseMessaging.instance
-        .getToken()
-        .then((value) => FirebaseFirestore.instance
-            .collection("tokens")
-            .doc(userId)
-            .set({userId: value}))
-        .onError((error, stackTrace) => log(error.toString()));
+    String? token = await FirebaseMessaging.instance.getToken();
+    DocumentReference<Map<String, dynamic>> document =
+        FirebaseFirestore.instance.collection("tokens").doc("DeviceId");
+    DocumentSnapshot<Map<String, dynamic>> documentData = await document.get();
+    if (documentData.exists && documentData.data()!.containsKey(token)) {
+      return;
+    } else {
+      document.set({userId: token});
+    }
   }
 }
