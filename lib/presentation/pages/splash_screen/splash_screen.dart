@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,8 @@ class _SplashScreenState extends State<SplashScreen> {
 checkIsloggedIn() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
   String? fcmToken = await FirebaseMessaging.instance.getToken();
-  preferences.setString(CustomStrings.fcmTokenKey, fcmToken!);
+  log(fcmToken.toString());
+  preferences.setString(CustomStrings.fcmTokenKey, fcmToken.toString());
   await RemoteConfigServices.fetchRemoteConfigData();
   RemoteConfigUtils.checkPackageVersion();
   bool isLogged = preferences.getBool(CustomStrings.isLoggedIn) ?? false;

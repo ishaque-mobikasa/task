@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/app/utils/custom_strings.dart';
 import 'package:task/network/dio_services.dart';
 
-Future<void> messageHandler(RemoteMessage message) async {
+Future<void> _messageHandler(RemoteMessage message) async {
   log(message.data.toString());
 }
 
@@ -32,7 +32,7 @@ class PushNotificationService {
       return true;
     };
 
-    FirebaseMessaging.onBackgroundMessage(messageHandler);
+    FirebaseMessaging.onBackgroundMessage(_messageHandler);
   }
 
   static Future requestPermission() async {
@@ -124,26 +124,19 @@ class PushNotificationService {
   static void sendTransactionalPushNotification(
       {required String messageTitle, required String messageBody}) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-
+    log("requesting Send push notification to ==>${pref.getString(CustomStrings.fcmTokenKey).toString()}");
     await DioService.postMethod(
       requestOptions: RequestOptions(
-          path: Uri.parse(CustomStrings.notificationApiUrl).toString(),
-          data: {
-            "priority": "high",
-            "to": pref.getString(CustomStrings.fcmTokenKey),
-            "body": {
-              "body": messageBody,
-              "title": messageTitle,
-            },
-            "notification": {
-              "body": messageBody,
-              "title": messageTitle,
-            }
-          },
-          headers: {
-            'content-type': 'application/json',
-            'Authorization': CustomStrings.notificationServerKey
-          }),
+        path: Uri.parse(CustomStrings.notificationApiUrl).toString(),
+        data: {
+          "priority": "high",
+          "to": "${pref.getString(CustomStrings.fcmTokenKey)}",
+          "notification": {
+            "body": messageBody,
+            "title": messageTitle,
+          }
+        },
+      ),
     );
   }
 }

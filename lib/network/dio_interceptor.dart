@@ -9,6 +9,7 @@ class DioInterceptor extends Interceptor {
   // DioInterceptor({required this.requestRetrier});
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
+    log("Caught error");
     if (_shouldStop(err)) {
       log(err.message.toString());
       handler.next(err);
@@ -20,6 +21,7 @@ class DioInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    log("Sucessfully send Request ");
     if (options.method == "POST") {
       options.headers = {
         'content-type': 'application/json',
@@ -42,6 +44,7 @@ class DioInterceptor extends Interceptor {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
+    log("Sucessfully received Response ");
     handler.next(response);
   }
 }
