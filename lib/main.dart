@@ -1,11 +1,13 @@
-import 'package:firebase_core/firebase_core.dart';
+import 'dart:developer';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task/core/routes.dart';
+import 'package:task/domain/entities/push_notification/notifications.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  PushNotificationService.initializeAllServices();
   runApp(const MyApp());
 }
 

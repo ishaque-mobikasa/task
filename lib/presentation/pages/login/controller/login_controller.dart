@@ -5,10 +5,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task/app/utils/app_colors.dart';
 import 'package:task/app/utils/custom_strings.dart';
+import 'package:task/app/utils/remote_config_utils.dart';
 import 'package:task/core/routes.dart';
 import 'package:task/data/models/user/user_model.dart';
 import 'package:task/domain/entities/google_sign_in/google_sign_in.dart';
+import 'package:task/domain/entities/push_notification/notifications.dart';
 
 class LoginController extends GetxController {
   @override
@@ -25,7 +28,7 @@ class LoginController extends GetxController {
       TextEditingController().obs;
   final RxBool isObscured = true.obs;
   final RxBool isEnabled = false.obs;
-  onLoginButtonPress() {
+  onLoginButtonPress() async {
     if (loginKey.value.currentState!.validate()) {
       String? dataOndisk = preferences.getString(emailController.value.text);
       if (dataOndisk != null) {
@@ -38,6 +41,22 @@ class LoginController extends GetxController {
           Get.snackbar(
               CustomStrings.validCredentials, CustomStrings.loginSuccess);
           Get.offNamed(Routes.mainDisplayer);
+          if (RemoteConfigUtils.showBanner) {
+            Get.showSnackbar(GetSnackBar(
+              titleText: Text(RemoteConfigUtils.serverString,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: CustomColors.whiteColor)),
+              snackStyle: SnackStyle.GROUNDED,
+              duration: const Duration(seconds: 5),
+              dismissDirection: DismissDirection.endToStart,
+              messageText: Text(
+                "Please Update to the latest version V ${RemoteConfigUtils.appVersion}",
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: CustomColors.whiteColor),
+              ),
+            ));
+          }
+          await PushNotificationService.getSetToken();
         } else {
           Get.snackbar(CustomStrings.invalidCredentials, "Try  again");
           return;
@@ -89,6 +108,22 @@ class LoginController extends GetxController {
         Get.snackbar(
             CustomStrings.validCredentials, CustomStrings.loginSuccess);
         Get.offNamed(Routes.mainDisplayer);
+        if (RemoteConfigUtils.showBanner) {
+          Get.showSnackbar(GetSnackBar(
+            titleText: Text(RemoteConfigUtils.serverString,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: CustomColors.whiteColor)),
+            snackStyle: SnackStyle.GROUNDED,
+            duration: const Duration(seconds: 5),
+            dismissDirection: DismissDirection.endToStart,
+            messageText: Text(
+              "Please Update to the latest version V ${RemoteConfigUtils.appVersion}",
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: CustomColors.whiteColor),
+            ),
+          ));
+        }
+        await PushNotificationService.getSetToken();
       }
     } finally {
       isLoading.value = false;

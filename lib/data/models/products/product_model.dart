@@ -4,7 +4,7 @@ List<ProductsModel> productsModelFromJson(str) => List<ProductsModel>.from(
 class ProductsModel {
   ProductsModel({
     this.id,
-    this.title,
+    this.title ,
     this.price,
     this.description,
     this.category,

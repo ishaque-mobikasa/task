@@ -42,4 +42,22 @@ class ProfileController extends GetxController {
     );
     await FirebaseAuth.instance.signOut();
   }
+
+  onResetButtonClick() async {
+    await Get.defaultDialog(
+      confirmTextColor: CustomColors.whiteColor,
+      textConfirm: "Confirm!!",
+      radius: 10,
+      middleText: "Reset Everything? This cant be undone!",
+      title: "Reset",
+      onCancel: () => Get.back(),
+      onConfirm: () {
+        preferences.setBool(CustomStrings.isLoggedIn, false);
+
+        Get.offNamedUntil(Routes.splashScreen, (route) => false);
+      },
+    );
+    await FirebaseAuth.instance.signOut();
+    preferences.clear();
+  }
 }
