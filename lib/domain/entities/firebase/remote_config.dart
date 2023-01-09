@@ -5,7 +5,7 @@ class RemoteConfigServices {
       FirebaseRemoteConfig.instance;
   static Future<FirebaseRemoteConfig> fetchRemoteConfigData() async {
     try {
-      _remoteConfig.setDefaults({"appVersion": "","hasUpdate":false,"updateMessage":""});
+      _remoteConfig.setDefaults({"appVersion": "","hasUpdate":false,"updateMessage":"","notificationTitle":"","notificationBody":""});
       await _remoteConfig.setConfigSettings(RemoteConfigSettings(
           fetchTimeout: const Duration(seconds: 10),
           minimumFetchInterval: Duration.zero));

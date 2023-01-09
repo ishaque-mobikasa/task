@@ -94,8 +94,7 @@ class PushNotificationService {
   static Future getSetToken() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String userId = pref.getString(CustomStrings.loggedInUserkey).toString();
-    String? token = await FirebaseMessaging.instance.getToken();
-
+    String? token = pref.getString(CustomStrings.fcmTokenKey);
     userId = userId.replaceAll(".", "_");
     log(userId);
     DocumentReference<Map<String, dynamic>> document =
