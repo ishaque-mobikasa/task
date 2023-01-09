@@ -26,9 +26,7 @@ class HomeView extends GetView<HomeController> {
           actions: [
             IconButton(
                 onPressed: () {
-                  PushNotificationService.sendTransactionalPushNotification(
-                      messageTitle: CustomStrings.notificationTitle,
-                      messageBody: CustomStrings.notificationBody);
+                  PushNotificationService.sendTransactionalPushNotification();
                 },
                 icon: const Icon(Icons.search))
           ],

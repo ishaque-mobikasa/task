@@ -120,8 +120,8 @@ class PushNotificationService {
     }
   }
 
-  static void sendTransactionalPushNotification(
-      {required String messageTitle, required String messageBody}) async {
+  static void sendTransactionalPushNotification() async {
+   
     SharedPreferences pref = await SharedPreferences.getInstance();
     log("requesting Send push notification to ==>${pref.getString(CustomStrings.fcmTokenKey).toString()}");
     await DioService.postMethod(
@@ -131,8 +131,8 @@ class PushNotificationService {
           "priority": "high",
           "to": "${pref.getString(CustomStrings.fcmTokenKey)}",
           "notification": {
-            "body": messageBody,
-            "title": messageTitle,
+            "body": CustomStrings().notificationBody,
+            "title": CustomStrings().notificationTitle,
           }
         },
       ),
