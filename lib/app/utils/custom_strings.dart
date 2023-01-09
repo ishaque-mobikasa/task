@@ -29,4 +29,10 @@ class CustomStrings {
       "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg";
   static String electronicsImage =
       "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg";
+  static String notificationApiUrl = "https://fcm.googleapis.com/fcm/send";
+  static String notificationServerKey =
+      'key=AAAAtqDRNqs:APA91bGsjRPRl_63vav8gvHEaAu-vWhatwddmHuRijQq7hdcc5anI7NSA9RjZ5HRAOqGTf1BEh08ZiHr61e6y7Kt-vku_M5DkcAp1zfPXdLePXsIVfHxyaCBPFnyQARpNK82t5BnAPtV';
+  static String fcmTokenKey = "FCMtoken";
+  static String notificationBody = "World";
+  static String notificationTitle = "Hello";
 }

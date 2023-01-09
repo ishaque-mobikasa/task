@@ -11,7 +11,6 @@ class RemoteConfigUtils {
   static bool showBanner = false;
   static checkPackageVersion() async {
     PackageInfo info = await PackageInfo.fromPlatform();
-
     if (hasUpdate && info.version != appVersion) {
       showBanner = true;
     }

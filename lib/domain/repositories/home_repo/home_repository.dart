@@ -7,12 +7,15 @@ enum CategoryType { jewelery, electronics, mensClothing, womensClothing }
 
 class HomeRepository {
   static Future<List<ProductsModel>> fetchAllProducts() async {
-    Response response =
-        await DioService.getMethod(url: CustomStrings.allProductsUrl);
-    if (response.statusCode == 200) {
-      return productsModelFromJson(response.data);
+    try {
+      Response response =
+          await DioService.getMethod(url: CustomStrings.allProductsUrl);
+      if (response.statusCode == 200) {
+        return productsModelFromJson(response.data);
+      }
+    } on DioError {
+      return [];
     }
     return [];
   }
-
 }

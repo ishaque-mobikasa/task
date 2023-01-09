@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -9,27 +10,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/app/utils/custom_strings.dart';
+import 'package:task/network/dio_services.dart';
+
+Future<void> messageHandler(RemoteMessage message) async {
+  log(message.data.toString());
+}
 
 class PushNotificationService {
   static late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-  static Future<void> _backgroundMessageHandler(RemoteMessage message) async {
-    log(message.data.toString());
-  }
 
   static initializeAllServices() async {
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     await FirebaseMessaging.instance.getInitialMessage();
-    FirebaseMessaging.onBackgroundMessage(
-        (message) => _backgroundMessageHandler(message));
-    FlutterError.onError = (errorDetails) {
-      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+    FlutterError.onError = (errorDetails) async {
+      await FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
     };
     PlatformDispatcher.instance.onError = (error, stack) {
       FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
       return true;
     };
+
+    FirebaseMessaging.onBackgroundMessage(messageHandler);
   }
 
   static Future requestPermission() async {
@@ -92,13 +95,55 @@ class PushNotificationService {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String userId = pref.getString(CustomStrings.loggedInUserkey).toString();
     String? token = await FirebaseMessaging.instance.getToken();
+
+    userId = userId.replaceAll(".", "_");
+    log(userId);
     DocumentReference<Map<String, dynamic>> document =
         FirebaseFirestore.instance.collection("tokens").doc("DeviceId");
-    DocumentSnapshot<Map<String, dynamic>> documentData = await document.get();
-    if (documentData.exists && documentData.data()!.containsKey(token)) {
-      return;
+    DocumentSnapshot<Map<String, dynamic>> documentFileds =
+        await document.get();
+    if (documentFileds.exists && documentFileds.data()!.containsKey(userId)) {
+      List<dynamic> data = documentFileds.data()!.values.first;
+      if ((data.contains(token))) {
+        log("Everything alll right,same device,same account");
+        return;
+      } else {
+        log("Let me update the device token only");
+        await document.update({
+          userId: FieldValue.arrayUnion([token])
+        });
+      }
     } else {
-      document.set({userId: token});
+      log("no user exists,Create new document fields");
+      await document.set({
+        userId: [token]
+      }, SetOptions(merge: true));
     }
+  }
+
+  static void sendTransactionalPushNotification(
+      {required String messageTitle, required String messageBody}) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    await DioService.postMethod(
+      requestOptions: RequestOptions(
+          path: Uri.parse(CustomStrings.notificationApiUrl).toString(),
+          data: {
+            "priority": "high",
+            "to": pref.getString(CustomStrings.fcmTokenKey),
+            "body": {
+              "body": messageBody,
+              "title": messageTitle,
+            },
+            "notification": {
+              "body": messageBody,
+              "title": messageTitle,
+            }
+          },
+          headers: {
+            'content-type': 'application/json',
+            'Authorization': CustomStrings.notificationServerKey
+          }),
+    );
   }
 }
