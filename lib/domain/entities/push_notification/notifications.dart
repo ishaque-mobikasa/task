@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -66,6 +67,7 @@ class PushNotificationService {
           if (notificationData.payload != null) {
             Response response = await DioService.getMethod(
                 url: 'products/${notificationData.payload}');
+            log("Payload data");
             log(response.data.toString());
             ProductsModel model = ProductsModel.fromJson(response.data);
             Get.toNamed(Routes.productDetails, arguments: model);
@@ -139,13 +141,13 @@ class PushNotificationService {
           "priority": "high",
           "to": "${pref.getString(CustomStrings.fcmTokenKey)}",
           "notification": {
-            "body": CustomStrings().notificationBody,
-            "title": CustomStrings().notificationTitle,
+            "body": RemoteConfigUtils().notificationBody,
+            "title": RemoteConfigUtils().notificationTitle,
           },
           "data": {
             "click_action": "FLUTTER_NOTIFICATION_CLICK",
             "status": "done",
-            "body": RemoteConfigUtils().productId,
+            "body": (math.Random().nextInt(20) + 1).toString(),
           }
         },
       ),

@@ -9,7 +9,9 @@ class RemoteConfigServices {
         "appVersion": "",
         "hasUpdate": false,
         "updateMessage": "",
-        "productId": "1"
+        "productId": "1",
+        "notificationBody":"",
+        "notificationTitle":""
       });
       await _remoteConfig.setConfigSettings(RemoteConfigSettings(
           fetchTimeout: const Duration(seconds: 10),
