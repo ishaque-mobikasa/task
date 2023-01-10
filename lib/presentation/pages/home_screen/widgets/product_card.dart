@@ -18,25 +18,23 @@ class ProductCard extends StatelessWidget {
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-            child: FittedBox(
-              child: Image.network(
-                product.image.toString(),
-                loadingBuilder: (context, child, loadingProgress) {
-                  return loadingProgress == null
-                      ? child
-                      : SizedBox(
-                          height: size.height * 0.5,
-                          child: Center(
-                              child: CircularProgressIndicator(
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                                : null,
-                          )));
-                },
-                height: size.height * 0.1,
-                fit: BoxFit.cover,
-              ),
+            child: Image.network(
+              product.image.toString(),
+              loadingBuilder: (context, child, loadingProgress) {
+                return loadingProgress == null
+                    ? child
+                    : SizedBox(
+                        height: size.height * 0.5,
+                        child: Center(
+                            child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        )));
+              },
+              height: size.height * 0.1,
+              fit: BoxFit.cover,
             ),
           ),
         ),
@@ -134,7 +132,6 @@ class ProductCard extends StatelessWidget {
             ),
           ],
         ),
-        const Spacer()
       ]),
     );
   }

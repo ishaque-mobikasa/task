@@ -5,7 +5,12 @@ class RemoteConfigServices {
       FirebaseRemoteConfig.instance;
   static Future<FirebaseRemoteConfig> fetchRemoteConfigData() async {
     try {
-      _remoteConfig.setDefaults({"appVersion": "","hasUpdate":false,"updateMessage":"","notificationTitle":"","notificationBody":""});
+      _remoteConfig.setDefaults({
+        "appVersion": "",
+        "hasUpdate": false,
+        "updateMessage": "",
+        "productId": "1"
+      });
       await _remoteConfig.setConfigSettings(RemoteConfigSettings(
           fetchTimeout: const Duration(seconds: 10),
           minimumFetchInterval: Duration.zero));
@@ -21,11 +26,11 @@ class RemoteConfigServices {
     return _remoteConfig.getString(key);
   }
 
-    static double fetchServerNumValue(String key) {
+  static double fetchServerNumValue(String key) {
     return _remoteConfig.getDouble(key);
   }
 
-   static bool fetchServerboolValue(String key) {
+  static bool fetchServerboolValue(String key) {
     return _remoteConfig.getBool(key);
   }
 }
