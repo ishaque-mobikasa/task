@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,8 +9,12 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/route_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/app/utils/custom_strings.dart';
+import 'package:task/app/utils/remote_config_utils.dart';
+import 'package:task/core/routes.dart';
+import 'package:task/data/models/products/product_model.dart';
 import 'package:task/network/dio_services.dart';
 
 Future<void> _messageHandler(RemoteMessage message) async {
@@ -46,7 +51,6 @@ class PushNotificationService {
         sound: true,
         provisional: true);
     await _initialiseLocalNotifications();
-    log("Settings initialised");
   }
 
   static Future _initialiseLocalNotifications() async {
@@ -57,12 +61,19 @@ class PushNotificationService {
         InitializationSettings(android: androidSettings, iOS: iosSettings);
     await flutterLocalNotificationsPlugin.initialize(
       initialisationSettings,
-      onDidReceiveNotificationResponse: (details) {
+      onDidReceiveNotificationResponse: (notificationData) async {
+        log(notificationData.payload.toString());
         try {
-          if (details.payload != null) {
-            log(details.payload.toString());
+          if (notificationData.payload != null) {
+            Response response = await DioService.getMethod(
+                url: 'products/${notificationData.payload}');
+            log("Payload data");
+            log(response.data.toString());
+            ProductsModel model = ProductsModel.fromJson(response.data);
+            Get.toNamed(Routes.productDetails, arguments: model);
           }
         } catch (e) {
+          log("Notification Data Null");
           return;
         }
       },
@@ -88,14 +99,13 @@ class PushNotificationService {
           event.notification!.body.toString(),
           platformChannelSpecifics,
           payload: event.data["body"]);
-    }).onError((object, stackTrace) => log("failed to get subscription"));
+    }).onError((object, stackTrace) => log("Operation failed successfully"));
   }
 
   static Future getSetToken() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String userId = pref.getString(CustomStrings.loggedInUserkey).toString();
-    String? token = await FirebaseMessaging.instance.getToken();
-
+    String? token = pref.getString(CustomStrings.fcmTokenKey);
     userId = userId.replaceAll(".", "_");
     log(userId);
     DocumentReference<Map<String, dynamic>> document =
@@ -121,8 +131,7 @@ class PushNotificationService {
     }
   }
 
-  static void sendTransactionalPushNotification(
-      {required String messageTitle, required String messageBody}) async {
+  static void sendTransactionalPushNotification() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     log("requesting Send push notification to ==>${pref.getString(CustomStrings.fcmTokenKey).toString()}");
     await DioService.postMethod(
@@ -132,8 +141,13 @@ class PushNotificationService {
           "priority": "high",
           "to": "${pref.getString(CustomStrings.fcmTokenKey)}",
           "notification": {
-            "body": messageBody,
-            "title": messageTitle,
+            "body": RemoteConfigUtils().notificationBody,
+            "title": RemoteConfigUtils().notificationTitle,
+          },
+          "data": {
+            "click_action": "FLUTTER_NOTIFICATION_CLICK",
+            "status": "done",
+            "body": (math.Random().nextInt(20) + 1).toString(),
           }
         },
       ),

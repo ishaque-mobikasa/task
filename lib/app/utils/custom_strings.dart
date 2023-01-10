@@ -33,6 +33,6 @@ class CustomStrings {
   static String notificationServerKey =
       'key=AAAAtqDRNqs:APA91bGsjRPRl_63vav8gvHEaAu-vWhatwddmHuRijQq7hdcc5anI7NSA9RjZ5HRAOqGTf1BEh08ZiHr61e6y7Kt-vku_M5DkcAp1zfPXdLePXsIVfHxyaCBPFnyQARpNK82t5BnAPtV';
   static String fcmTokenKey = "FCMtoken";
-  static String notificationBody = "World";
-  static String notificationTitle = "Hello";
+  String notificationBody = "Checkout This Products";
+  String notificationTitle = "Grab this before you miss out";
 }

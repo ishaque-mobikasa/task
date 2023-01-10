@@ -41,16 +41,16 @@ class LoginController extends GetxController {
           Get.snackbar(
               CustomStrings.validCredentials, CustomStrings.loginSuccess);
           Get.offNamed(Routes.mainDisplayer);
-          if (RemoteConfigUtils.showBanner) {
+          if (RemoteConfigUtils().showBanner) {
             Get.showSnackbar(GetSnackBar(
-              titleText: Text(RemoteConfigUtils.serverString,
+              titleText: Text(RemoteConfigUtils().getServerString,
                   textAlign: TextAlign.center,
                   style: const TextStyle(color: CustomColors.whiteColor)),
               snackStyle: SnackStyle.GROUNDED,
               duration: const Duration(seconds: 5),
               dismissDirection: DismissDirection.endToStart,
               messageText: Text(
-                "Please Update to the latest version V ${RemoteConfigUtils.appVersion}",
+                "Please Update to the latest version V ${RemoteConfigUtils().getAppVersion}",
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: CustomColors.whiteColor),
               ),
@@ -108,16 +108,16 @@ class LoginController extends GetxController {
         Get.snackbar(
             CustomStrings.validCredentials, CustomStrings.loginSuccess);
         Get.offNamed(Routes.mainDisplayer);
-        if (RemoteConfigUtils.showBanner) {
+        if (RemoteConfigUtils().showBanner) {
           Get.showSnackbar(GetSnackBar(
-            titleText: Text(RemoteConfigUtils.serverString,
+            titleText: Text(RemoteConfigUtils().getServerString,
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: CustomColors.whiteColor)),
             snackStyle: SnackStyle.GROUNDED,
             duration: const Duration(seconds: 5),
             dismissDirection: DismissDirection.endToStart,
             messageText: Text(
-              "Please Update to the latest version V ${RemoteConfigUtils.appVersion}",
+              "Please Update to the latest version V ${RemoteConfigUtils().getAppVersion}",
               textAlign: TextAlign.center,
               style: const TextStyle(color: CustomColors.whiteColor),
             ),
