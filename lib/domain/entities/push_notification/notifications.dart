@@ -28,7 +28,24 @@ class PushNotificationService {
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
-    await FirebaseMessaging.instance.getInitialMessage();
+    await FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((notificationData) {
+      try {
+        if (notificationData != null && notificationData.data.isNotEmpty) {
+          log("Recieved==>products/${notificationData.data['data']}"
+              .toString());
+          DioService.getMethod(
+                  url: 'products/${notificationData.data['data'].toString()}')
+              .then((value) => ProductsModel.fromJson(value.data))
+              .then((model) =>
+                  Get.toNamed(Routes.productDetails, arguments: model));
+        }
+      } catch (e) {
+        log("Notification Data is Null and void");
+        return;
+      }
+    });
     FlutterError.onError = (errorDetails) async {
       await FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
     };
@@ -67,7 +84,6 @@ class PushNotificationService {
           if (notificationData.payload != null) {
             Response response = await DioService.getMethod(
                 url: 'products/${notificationData.payload}');
-            log("Payload data");
             log(response.data.toString());
             ProductsModel model = ProductsModel.fromJson(response.data);
             Get.toNamed(Routes.productDetails, arguments: model);
@@ -77,7 +93,24 @@ class PushNotificationService {
           return;
         }
       },
+      // onDidReceiveBackgroundNotificationResponse: (notificationData) async {
+      //   log(notificationData.payload.toString());
+      //   try {
+      //     if (notificationData.payload != null) {
+      //       Response response = await DioService.getMethod(
+      //           url: 'products/${notificationData.payload}');
+      //       log("Payload data");
+      //       log(response.data.toString());
+      //       ProductsModel model = ProductsModel.fromJson(response.data);
+      //       Get.toNamed(Routes.productDetails, arguments: model);
+      //     }
+      //   } catch (e) {
+      //     log("Notification Data Null");
+      //     return;
+      //   }
+      // },
     );
+
     FirebaseMessaging.onMessage.listen((event) async {
       log("Message from firebase triggered");
       var bigStyleInfo = BigTextStyleInformation(
@@ -100,6 +133,22 @@ class PushNotificationService {
           platformChannelSpecifics,
           payload: event.data["body"]);
     }).onError((object, stackTrace) => log("Operation failed successfully"));
+
+    FirebaseMessaging.onMessageOpenedApp.listen((notificationData) async {
+      try {
+        if (notificationData.data.isNotEmpty) {
+          log("Recieved==>products/${notificationData.data['data']}"
+              .toString());
+          Response response = await DioService.getMethod(
+              url: 'products/${notificationData.data['data'].toString()}');
+          ProductsModel model = ProductsModel.fromJson(response.data);
+          Get.toNamed(Routes.productDetails, arguments: model);
+        }
+      } catch (e) {
+        log("Notification Data is Null and void");
+        return;
+      }
+    });
   }
 
   static Future getSetToken() async {
