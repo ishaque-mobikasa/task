@@ -17,7 +17,7 @@ import 'package:task/core/routes.dart';
 import 'package:task/data/models/products/product_model.dart';
 import 'package:task/network/dio_services.dart';
 
-Future<void> _messageHandler(RemoteMessage message) async {
+Future<void> messageHandler(RemoteMessage message) async {
   log(message.data.toString());
 }
 
@@ -33,10 +33,10 @@ class PushNotificationService {
         .then((notificationData) {
       try {
         if (notificationData != null && notificationData.data.isNotEmpty) {
-          log("Recieved==>products/${notificationData.data['data']}"
+          log("Recieved==>products/${notificationData.data['body']}"
               .toString());
           DioService.getMethod(
-                  url: 'products/${notificationData.data['data'].toString()}')
+                  url: 'products/${notificationData.data['body'].toString()}')
               .then((value) => ProductsModel.fromJson(value.data))
               .then((model) =>
                   Get.toNamed(Routes.productDetails, arguments: model));
@@ -54,7 +54,7 @@ class PushNotificationService {
       return true;
     };
 
-    FirebaseMessaging.onBackgroundMessage(_messageHandler);
+    FirebaseMessaging.onBackgroundMessage(messageHandler);
   }
 
   static Future requestPermission() async {
@@ -79,7 +79,8 @@ class PushNotificationService {
     await flutterLocalNotificationsPlugin.initialize(
       initialisationSettings,
       onDidReceiveNotificationResponse: (notificationData) async {
-        log(notificationData.payload.toString());
+        log("Iam printing notification.data.payload from did recieve notification");
+        log('products/${notificationData.payload}');
         try {
           if (notificationData.payload != null) {
             Response response = await DioService.getMethod(
@@ -93,22 +94,6 @@ class PushNotificationService {
           return;
         }
       },
-      // onDidReceiveBackgroundNotificationResponse: (notificationData) async {
-      //   log(notificationData.payload.toString());
-      //   try {
-      //     if (notificationData.payload != null) {
-      //       Response response = await DioService.getMethod(
-      //           url: 'products/${notificationData.payload}');
-      //       log("Payload data");
-      //       log(response.data.toString());
-      //       ProductsModel model = ProductsModel.fromJson(response.data);
-      //       Get.toNamed(Routes.productDetails, arguments: model);
-      //     }
-      //   } catch (e) {
-      //     log("Notification Data Null");
-      //     return;
-      //   }
-      // },
     );
 
     FirebaseMessaging.onMessage.listen((event) async {
@@ -135,14 +120,15 @@ class PushNotificationService {
     }).onError((object, stackTrace) => log("Operation failed successfully"));
 
     FirebaseMessaging.onMessageOpenedApp.listen((notificationData) async {
+      log("Iam printing notification.data.payload from on messageOpenedApp");
       try {
         if (notificationData.data.isNotEmpty) {
-          log("Recieved==>products/${notificationData.data['data']}"
+          log("Recieved==>products/${notificationData.data['body']}"
               .toString());
           Response response = await DioService.getMethod(
-              url: 'products/${notificationData.data['data'].toString()}');
+              url: 'products/${notificationData.data['body'].toString()}');
           ProductsModel model = ProductsModel.fromJson(response.data);
-          Get.toNamed(Routes.productDetails, arguments: model);
+          Get.offAndToNamed(Routes.productDetails, arguments: model);
         }
       } catch (e) {
         log("Notification Data is Null and void");
@@ -180,7 +166,7 @@ class PushNotificationService {
     }
   }
 
-  static void sendTransactionalPushNotification() async {
+  void sendTransactionalPushNotification() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     log("requesting Send push notification to ==>${pref.getString(CustomStrings.fcmTokenKey).toString()}");
     await DioService.postMethod(

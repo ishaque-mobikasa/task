@@ -10,7 +10,7 @@ class CategoryListingController extends GetxController {
   @override
   void onInit() {
     log("OnInnit called");
-    PushNotificationService.sendTransactionalPushNotification();
+    PushNotificationService().sendTransactionalPushNotification();
     super.onInit();
   }
 
