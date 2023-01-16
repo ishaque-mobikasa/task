@@ -7,8 +7,9 @@ import 'package:task/app/utils/themes.dart';
 import 'package:task/core/routes.dart';
 import 'package:task/domain/entities/push_notification/notifications.dart';
 import 'package:task/presentation/pages/home_screen/controller/home_controller.dart';
-import 'package:task/presentation/pages/home_screen/widgets/product_tile.dart';
 import 'package:task/presentation/pages/on_boarding/widget/build_dots.dart';
+
+import 'widgets/product_tile_small.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
@@ -24,9 +25,11 @@ class HomeView extends GetView<HomeController> {
           centerTitle: true,
           title: const Text("D A S H B O A R D"),
           actions: [
-            IconButton(onPressed: () {
-             PushNotificationService().sendTransactionalPushNotification();
-            }, icon: const Icon(Icons.search))
+            IconButton(
+                onPressed: () {
+                  PushNotificationService().sendTransactionalPushNotification();
+                },
+                icon: const Icon(Icons.search))
           ],
         )
       ],
@@ -106,9 +109,9 @@ class HomeView extends GetView<HomeController> {
                         dotsColor: const Color.fromARGB(255, 39, 132, 3),
                       ),
                     ),
-                    Row(
-                      children: [headingText("Browse What we have in offer..")],
-                    ),
+                    headingText(
+                        text: "Browse What we have in offer..",
+                        width: size.width * 0.9),
                     SizedBox(
                       height: size.height * 0.25,
                       child: ListView(
@@ -124,7 +127,9 @@ class HomeView extends GetView<HomeController> {
                             .toList(),
                       ),
                     ),
-                    headingText("Your aesthetics have something here in.."),
+                    headingText(
+                        text: "Your aesthetics have something here in..",
+                        width: size.width * 0.5),
                     SizedBox(
                       height: size.height * 0.25,
                       child: ListView(
@@ -165,7 +170,9 @@ class HomeView extends GetView<HomeController> {
                               .take(4)
                               .toList()),
                     ),
-                    headingText("Clothing ideas for Her.."),
+                    headingText(
+                        text: "Clothing ideas for Her..",
+                        width: size.width * 0.9),
                     SizedBox(
                       height: size.height * 0.25,
                       child: ListView(
@@ -183,7 +190,9 @@ class HomeView extends GetView<HomeController> {
                               .take(4)
                               .toList()),
                     ),
-                    headingText("Unleash your Masculinity..."),
+                    headingText(
+                        text: "Unleash your Masculinity...",
+                        width: size.width * 0.9),
                     SizedBox(
                       height: size.height * 0.25,
                       child: ListView(
@@ -205,14 +214,17 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Padding headingText(String text) {
+  Widget headingText({required String text, required double width}) {
     return Padding(
       padding: const EdgeInsets.symmetric(
           vertical: CustomDimensions.padding20, horizontal: 30),
-      child: Text(
-        text,
-        textAlign: TextAlign.start,
-        style: CustomStyle.style,
+      child: SizedBox(
+        width: width,
+        child: Text(
+          text,
+          textAlign: TextAlign.start,
+          style: CustomStyle.style,
+        ),
       ),
     );
   }
