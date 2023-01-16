@@ -57,58 +57,77 @@ class ProductCard extends StatelessWidget {
           padding: const EdgeInsets.all(15.0),
           child: Text(
             product.description.toString(),
-            maxLines: 4,
+            maxLines: 6,
             style: CustomStyle.style.copyWith(),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: SizedBox(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.rate_review_rounded,
-                      color: CustomColors.googleColor,
+        Container(
+          margin: const EdgeInsets.only(top: 10),
+          width: size.width,
+          height: size.height * 0.1,
+          decoration: BoxDecoration(border: Border.all()),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                children: [
+                  const Icon(
+                    Icons.rate_review_rounded,
+                    color: CustomColors.googleColor,
+                  ),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  SizedBox(
+                    width: size.width * 0.3,
+                    child: Text(
+                      "${product.rating!.rate} K Comments",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(
-                      width: 6,
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.thumb_up_sharp,
+                    color: CustomColors.blueColor,
+                  ),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  SizedBox(
+                    width: size.width * 0.1,
+                    child: Text(
+                      product.rating!.count.toString(),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    Text("${product.rating!.rate} K Comments"),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.thumb_up_sharp,
-                      color: CustomColors.blueColor,
-                    ),
-                    const SizedBox(
-                      width: 6,
-                    ),
-                    Text(product.rating!.count.toString())
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Text(
-                      "\u{20B9}",
-                      style: CustomStyle.style,
-                    ),
-                    const SizedBox(
-                      width: 6,
-                    ),
-                    Text(
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  const Text(
+                    "\u{20B9}",
+                    style: CustomStyle.style,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(
+                    width: size.width * 0.2,
+                    child: Text(
                       product.price.toString(),
                       style: CustomStyle.style
                           .copyWith(color: CustomColors.blackColor),
-                    )
-                  ],
-                ),
-              ],
-            ),
+                    ),
+                  )
+                ],
+              ),
+            ],
           ),
         ),
         const Spacer(),
