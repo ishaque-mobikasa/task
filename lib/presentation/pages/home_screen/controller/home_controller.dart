@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:task/core/route_setter.dart';
 import 'package:task/core/routes.dart';
@@ -36,11 +34,10 @@ class HomeController extends GetxController {
   }
 
   pdpOnNotificationClick() async {
-    log(RouteSetter().navigateToPdp.toString());
-    log(RouteSetter().getProduct.toString());
     if (RouteSetter().navigateToPdp && RouteSetter().getProduct != null) {
       await Get.toNamed(Routes.productDetails,
           arguments: RouteSetter().getProduct);
+      RouteSetter().navigateToPdp = false;
     }
   }
 }
