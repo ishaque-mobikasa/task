@@ -72,7 +72,9 @@ checkIsloggedIn() async {
     Timer(
         const Duration(seconds: 1),
         () async => {
-              Get.offNamed(Routes.mainDisplayer),
+              await Get.offNamed(
+                Routes.mainDisplayer,
+              ),
               if (RemoteConfigUtils().showBanner)
                 {
                   Get.showSnackbar(GetSnackBar(

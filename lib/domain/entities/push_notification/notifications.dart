@@ -13,6 +13,7 @@ import 'package:get/route_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task/app/utils/custom_strings.dart';
 import 'package:task/app/utils/remote_config_utils.dart';
+import 'package:task/core/route_setter.dart';
 import 'package:task/core/routes.dart';
 import 'package:task/data/models/products/product_model.dart';
 import 'package:task/network/dio_services.dart';
@@ -38,8 +39,10 @@ class PushNotificationService {
           DioService.getMethod(
                   url: 'products/${notificationData.data['body'].toString()}')
               .then((value) => ProductsModel.fromJson(value.data))
-              .then((model) =>
-                  Get.toNamed(Routes.productDetails, arguments: model));
+              .then((model) => {
+                    RouteSetter().navigateToPdp = true,
+                    RouteSetter().setProduct = model
+                  });
         }
       } catch (e) {
         log("Notification Data is Null and void");
