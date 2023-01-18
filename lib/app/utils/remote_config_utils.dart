@@ -2,17 +2,31 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:task/domain/entities/firebase/remote_config.dart';
 
 class RemoteConfigUtils {
-  static String serverString =
+  final String _serverString =
       RemoteConfigServices.fetchServerStringValue("updateMessage");
-  static bool hasUpdate =
+  final bool _hasUpdate =
       RemoteConfigServices.fetchServerboolValue("hasUpdate");
-  static String appVersion =
+  final String _appVersion =
       RemoteConfigServices.fetchServerStringValue("appVersion");
-  static bool showBanner = false;
-  static checkPackageVersion() async {
+  // final String _productId =
+  //     RemoteConfigServices.fetchServerStringValue("productId");
+  static bool _showBanner = false;
+  final String _notificationBody =
+      RemoteConfigServices.fetchServerStringValue("notificationBody");
+  final String _notificationTitle =
+      RemoteConfigServices.fetchServerStringValue("notificationTitle");
+  checkPackageVersion() async {
     PackageInfo info = await PackageInfo.fromPlatform();
-    if (hasUpdate && info.version != appVersion) {
-      showBanner = true;
+    if (_hasUpdate && info.version != _appVersion) {
+      _showBanner = true;
     }
   }
+
+  String get getServerString => _serverString;
+  bool get getHasUpdate => _hasUpdate;
+  String get getAppVersion => _appVersion;
+  //String get productId => _productId;
+  bool get showBanner => _showBanner;
+  String get notificationBody => _notificationBody;
+  String get notificationTitle => _notificationTitle;
 }

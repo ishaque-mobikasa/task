@@ -90,37 +90,60 @@ class RectangularCard extends StatelessWidget {
                           style: style,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text(
-                              "\u{20B9} ${((product.price! * 1.5).toInt()).toString()}",
-                              style: CustomStyle.style.copyWith(
-                                  fontSize: 18,
-                                  decoration: TextDecoration.lineThrough),
+                            Flexible(
+                              child: SizedBox(
+                                width: cstr.maxWidth * 0.6 * 0.2,
+                                child: Text(
+                                  "\u{20B9} ${((product.price! * 1.5).toInt()).toString()}",
+                                  style: CustomStyle.style.copyWith(
+                                      fontSize: 14,
+                                      decoration: TextDecoration.lineThrough),
+                                ),
+                              ),
                             ),
-                            Text(
-                              "\u{20B9} ${product.price}",
-                              style: CustomStyle.style.copyWith(fontSize: 25),
+                            Flexible(
+                              flex: 2,
+                              child: Text(
+                                "\u{20B9} ${product.price}",
+                                style: CustomStyle.style.copyWith(fontSize: 20),
+                              ),
                             ),
                           ],
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                const Icon(
-                                  Icons.rate_review_rounded,
-                                  color: CustomColors.blackColor,
-                                ),
-                                Text("${product.rating!.rate} K Comments"),
-                                const Icon(
-                                  Icons.thumb_up_sharp,
-                                  color: CustomColors.blackColor,
-                                ),
-                                Text(product.rating!.count.toString())
-                              ],
+                            SizedBox(
+                              width: cstr.maxWidth,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  const Icon(
+                                    Icons.rate_review_rounded,
+                                    color: CustomColors.blackColor,
+                                  ),
+                                  SizedBox(
+                                    width: cstr.maxWidth * 0.3,
+                                    child: Text(
+                                      "${product.rating!.rate} K Comments",
+                                      style: CustomStyle.style
+                                          .copyWith(fontSize: 14),
+                                    ),
+                                  ),
+                                  const Icon(
+                                    Icons.thumb_up_sharp,
+                                    color: CustomColors.blackColor,
+                                  ),
+                                  Text(
+                                    product.rating!.count.toString(),
+                                    style: CustomStyle.style
+                                        .copyWith(fontSize: 14),
+                                  )
+                                ],
+                              ),
                             ),
                           ],
                         )

@@ -66,24 +66,26 @@ checkIsloggedIn() async {
   log(fcmToken.toString());
   preferences.setString(CustomStrings.fcmTokenKey, fcmToken.toString());
   await RemoteConfigServices.fetchRemoteConfigData();
-  RemoteConfigUtils.checkPackageVersion();
+  RemoteConfigUtils().checkPackageVersion();
   bool isLogged = preferences.getBool(CustomStrings.isLoggedIn) ?? false;
   if (isLogged) {
     Timer(
         const Duration(seconds: 1),
         () async => {
-              Get.offNamed(Routes.mainDisplayer),
-              if (RemoteConfigUtils.showBanner)
+              await Get.offNamed(
+                Routes.mainDisplayer,
+              ),
+              if (RemoteConfigUtils().showBanner)
                 {
                   Get.showSnackbar(GetSnackBar(
-                    titleText: Text(RemoteConfigUtils.serverString,
+                    titleText: Text(RemoteConfigUtils().getServerString,
                         textAlign: TextAlign.center,
                         style: const TextStyle(color: CustomColors.whiteColor)),
                     snackStyle: SnackStyle.GROUNDED,
                     duration: const Duration(seconds: 5),
                     dismissDirection: DismissDirection.endToStart,
                     messageText: Text(
-                      "Please Update to the latest version V${RemoteConfigUtils.appVersion}",
+                      "Please Update to the latest version V${RemoteConfigUtils().getAppVersion}",
                       textAlign: TextAlign.center,
                       style: const TextStyle(color: CustomColors.whiteColor),
                     ),
