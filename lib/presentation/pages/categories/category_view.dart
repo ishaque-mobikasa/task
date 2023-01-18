@@ -7,6 +7,7 @@ import 'package:task/data/models/products/product_model.dart';
 import 'package:task/domain/repositories/home_repo/home_repository.dart';
 import 'package:task/presentation/pages/categories/controller/category_controller.dart';
 import 'package:task/presentation/pages/category_listing/controller/category_listing_controller.dart';
+
 import 'widgets/category_card.dart';
 
 class CategoryView extends GetView<CategoryController> {

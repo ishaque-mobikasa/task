@@ -4,9 +4,9 @@ import 'package:task/data/models/products/product_model.dart';
 
 class ProductTileSmall extends StatelessWidget {
   const ProductTileSmall({super.key, required this.model, this.onTap});
-
   final ProductsModel model;
   final void Function()? onTap;
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;

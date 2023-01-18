@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:task/core/routes.dart';
 import 'package:task/domain/entities/push_notification/notifications.dart';
 
 void main() async {
   PushNotificationService.initializeAllServices();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }
 
