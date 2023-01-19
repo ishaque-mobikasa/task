@@ -1,12 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:task/app/utils/custom_strings.dart';
 import 'package:task/app/utils/dimensions.dart';
 import 'package:task/app/utils/themes.dart';
 import 'package:task/core/routes.dart';
-import 'package:task/domain/entities/firebase/dynamic_links.dart';
 import 'package:task/presentation/pages/home_screen/controller/home_controller.dart';
 import 'package:task/presentation/pages/on_boarding/widget/build_dots.dart';
 
@@ -26,11 +24,7 @@ class HomeView extends GetView<HomeController> {
           centerTitle: true,
           title: const Text("D A S H B O A R D"),
           actions: [
-            IconButton(
-                onPressed: () {
-                  DynamicLinkService().createLink("5").then((value) => Share.share(value));
-                },
-                icon: const Icon(Icons.search))
+            IconButton(onPressed: () {}, icon: const Icon(Icons.search))
           ],
         )
       ],
