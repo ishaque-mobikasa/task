@@ -51,11 +51,13 @@ class ProfileController extends GetxController {
       middleText: "Reset Everything? This cant be undone!",
       title: "Reset",
       onCancel: () => Get.back(),
-      onConfirm: () async {
-        preferences.setBool(CustomStrings.isLoggedIn, false);
-        await FirebaseAuth.instance.signOut();
-        preferences.clear();
-        Get.offNamedUntil(Routes.splashScreen, (route) => false);
+      onConfirm: () {
+        preferences
+            .setBool(CustomStrings.isLoggedIn, false)
+            .then((value) => FirebaseAuth.instance.signOut())
+            .then((value) => preferences.clear())
+            .then((value) =>
+                Get.offNamedUntil(Routes.splashScreen, (route) => false));
       },
     );
   }
