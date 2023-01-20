@@ -1,16 +1,17 @@
 # task
 
-A new Flutter project.
+A flutter project which uses fakestore Api to resemble a e commerce site..
+It can be helpful if you want to learn the following including but not limited to
+1.Getx state management
+2.designing simple product tiles
+3.using dio packages and interceptors for network requests,performing get and post method.
+4.using shared preferences and manipulating them
+5.using firebase cloud messaging push notification
+6.using firebase remote config
+7.using firebase cloud firestore
+8.using firebase dynamic linking
 
-## Getting Started
+Explore more by yourself..Let me know your valubale suggestions and responses for further improvements..
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Cheers...Happy coding.....
