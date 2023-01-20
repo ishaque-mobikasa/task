@@ -2,6 +2,7 @@
 
 A flutter project which uses fakestore Api to resemble an e commerce site..
 It can be helpful if you want to learn the following including but not limited to
+
 1.Getx state management
 
 2.designing simple product tiles
