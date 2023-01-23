@@ -52,12 +52,13 @@ class ProfileController extends GetxController {
       title: "Reset",
       onCancel: () => Get.back(),
       onConfirm: () {
-        preferences.setBool(CustomStrings.isLoggedIn, false);
-
-        Get.offNamedUntil(Routes.splashScreen, (route) => false);
+        preferences
+            .setBool(CustomStrings.isLoggedIn, false)
+            .then((value) => FirebaseAuth.instance.signOut())
+            .then((value) => preferences.clear())
+            .then((value) =>
+                Get.offNamedUntil(Routes.splashScreen, (route) => false));
       },
     );
-    await FirebaseAuth.instance.signOut();
-    preferences.clear();
   }
 }

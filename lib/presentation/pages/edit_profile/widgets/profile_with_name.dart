@@ -107,13 +107,19 @@ class ProfileCard extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(
-                                name,
-                                style: style,
+                              SizedBox(
+                                width: cstr.maxWidth * 0.4,
+                                child: Text(
+                                  name,
+                                  style: style,
+                                ),
                               ),
-                              Text(
-                                phoneNumber,
-                                style: style,
+                              SizedBox(
+                                width: cstr.maxWidth * 0.4,
+                                child: Text(
+                                  phoneNumber,
+                                  style: style,
+                                ),
                               ),
                             ],
                           ),

@@ -14,9 +14,10 @@ class DioService {
         .then((value) => value);
   }
 
-  static Future<dynamic> getMethod({required String url}) async {
-    Dio dio = Dio(
-        BaseOptions(baseUrl: CustomStrings.backendUrl, receiveTimeout: 20000))
+  static Future<dynamic> getMethod(
+      {required String url, String? baseUrl}) async {
+    Dio dio = Dio(BaseOptions(
+        baseUrl: baseUrl ?? CustomStrings.backendUrl, receiveTimeout: 20000))
       ..interceptors.add(interceptor);
     return await dio.get(url).then((value) => value);
   }

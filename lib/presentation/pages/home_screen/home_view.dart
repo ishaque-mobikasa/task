@@ -1,14 +1,10 @@
-import 'dart:developer';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task/app/utils/custom_strings.dart';
 import 'package:task/app/utils/dimensions.dart';
 import 'package:task/app/utils/themes.dart';
-import 'package:task/core/route_setter.dart';
 import 'package:task/core/routes.dart';
-import 'package:task/domain/entities/push_notification/notifications.dart';
 import 'package:task/presentation/pages/home_screen/controller/home_controller.dart';
 import 'package:task/presentation/pages/on_boarding/widget/build_dots.dart';
 
@@ -28,13 +24,7 @@ class HomeView extends GetView<HomeController> {
           centerTitle: true,
           title: const Text("D A S H B O A R D"),
           actions: [
-            IconButton(
-                onPressed: () {
-                  PushNotificationService().sendTransactionalPushNotification();
-                  log(RouteSetter().navigateToPdp.toString());
-                  // RouteSetter().navigateToPdp = true;
-                },
-                icon: const Icon(Icons.search))
+            IconButton(onPressed: () {}, icon: const Icon(Icons.search))
           ],
         )
       ],

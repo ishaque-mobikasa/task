@@ -35,4 +35,6 @@ class CustomStrings {
   static String fcmTokenKey = "FCMtoken";
   String notificationBody = "Checkout This Products";
   String notificationTitle = "Grab this before you miss out";
+ static String fallBackUrl =
+      "https://play.google.com/store/apps/details?id=com.ishaque.moneyish";
 }
