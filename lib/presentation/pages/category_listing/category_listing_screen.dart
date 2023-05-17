@@ -29,10 +29,10 @@ class CategoryListingView extends GetView<CategoryListingController> {
                           );
                         })
                     : controller.isListingLoading.value
-                        ? Center(
+                        ? const Center(
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Text(
                                     "Please wait while fetching the data..",
                                     style: CustomStyle.style,

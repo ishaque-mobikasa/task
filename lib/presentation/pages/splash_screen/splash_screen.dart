@@ -45,8 +45,8 @@ class _SplashScreenState extends State<SplashScreen> {
             Positioned(
                 bottom: size.height * 0.05,
                 left: size.width * 0.28,
-                child: Column(
-                  children: const [
+                child: const Column(
+                  children: [
                     SplashText(text: "Welcome to awesome", fontSize: 20),
                     SplashText(
                         text: "Where we meet expectation with reality!",
@@ -93,6 +93,6 @@ checkIsloggedIn() async {
                 },
             });
   } else {
-    Timer(const Duration(seconds: 2), () => {Get.offNamed(Routes.onBoard)});
+    Timer(const Duration(seconds: 2), () => Get.offNamed(Routes.onBoard));
   }
 }

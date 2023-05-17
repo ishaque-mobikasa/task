@@ -18,14 +18,14 @@ class GoogleSignInRepo {
             accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
         UserCredential userCredential =
             await FirebaseAuth.instance.signInWithCredential(credentials);
-
+        log(googleUser.toString());
         log(userCredential.user!.toString());
         return userCredential;
       }
     } on FirebaseAuthException catch (e) {
       log(e.message.toString());
       return null;
-    }on Exception catch (e) {
+    } on Exception catch (e) {
       log(e.toString());
       return null;
     }

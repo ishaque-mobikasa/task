@@ -4,25 +4,16 @@ import 'package:task/app/utils/themes.dart';
 import 'package:task/data/models/products/product_model.dart';
 
 class RectangularCard extends StatelessWidget {
-  RectangularCard(
+  const RectangularCard(
       {super.key,
       this.style,
       required this.product,
-      this.bannerText,
-      this.odd}) {
-    style ??
-        (style = const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-            color: Colors.black,
-            overflow: TextOverflow.ellipsis));
-    bannerText ?? (bannerText = "New Arrival");
-    odd ?? (odd = 1);
-  }
-  TextStyle? style;
-  int? odd;
-  String? bannerText;
-  ProductsModel product;
+      this.bannerText = "New Arrival",
+      this.odd = 1});
+  final TextStyle? style;
+  final int? odd;
+  final String? bannerText;
+  final ProductsModel product;
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -87,7 +78,12 @@ class RectangularCard extends StatelessWidget {
                       children: [
                         Text(
                           product.title.toString(),
-                          style: style,
+                          style: style ??
+                              const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  overflow: TextOverflow.ellipsis),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
