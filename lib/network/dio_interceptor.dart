@@ -34,11 +34,11 @@ class DioInterceptor extends Interceptor {
   }
 
   bool _shouldStop(err) {
-    return err.type == DioErrorType.other &&
+    return err.type == DioErrorType.unknown &&
             err.error != null &&
             err.error is SocketException ||
         (err.error == DioErrorType.receiveTimeout ||
-            err.error == DioErrorType.connectTimeout ||
+            err.error == DioErrorType.connectionTimeout ||
             err.error == DioErrorType.sendTimeout);
   }
 

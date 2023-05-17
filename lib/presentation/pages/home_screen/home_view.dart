@@ -7,7 +7,6 @@ import 'package:task/app/utils/themes.dart';
 import 'package:task/core/routes.dart';
 import 'package:task/presentation/pages/home_screen/controller/home_controller.dart';
 import 'package:task/presentation/pages/on_boarding/widget/build_dots.dart';
-
 import 'widgets/product_tile_small.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -18,6 +17,7 @@ class HomeView extends GetView<HomeController> {
     var size = MediaQuery.of(context).size;
 
     return NestedScrollView(
+      physics: const BouncingScrollPhysics(),
       headerSliverBuilder: (context, innerBoxIsScrolled) => [
         SliverAppBar(
           floating: true,
@@ -44,6 +44,7 @@ class HomeView extends GetView<HomeController> {
                   ],
                 )
               : ListView(
+                  physics: const BouncingScrollPhysics(),
                   children: [
                     CarouselSlider(
                         items: controller.productsList
@@ -110,6 +111,7 @@ class HomeView extends GetView<HomeController> {
                     SizedBox(
                       height: size.height * 0.25,
                       child: ListView(
+                        physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         children: controller.productsList
                             .map((element) => ProductTileSmall(
@@ -128,6 +130,7 @@ class HomeView extends GetView<HomeController> {
                     SizedBox(
                       height: size.height * 0.25,
                       child: ListView(
+                          physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           children: controller.productsList
                               .where((element) =>
@@ -152,6 +155,7 @@ class HomeView extends GetView<HomeController> {
                     SizedBox(
                       height: size.height * 0.25,
                       child: ListView(
+                          physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           children: controller.productsList
                               .where((element) =>
@@ -171,6 +175,7 @@ class HomeView extends GetView<HomeController> {
                     SizedBox(
                       height: size.height * 0.25,
                       child: ListView(
+                          physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           children: controller.productsList
                               .where((element) =>
@@ -191,6 +196,7 @@ class HomeView extends GetView<HomeController> {
                     SizedBox(
                       height: size.height * 0.25,
                       child: ListView(
+                          physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           children: controller.productsList
                               .where((element) =>

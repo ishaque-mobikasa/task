@@ -89,10 +89,10 @@ class CategoryView extends GetView<CategoryController> {
                             ));
                       })
                   : controller.isLoading.value
-                      ? Center(
+                      ? const Center(
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 Text(
                                   "Please wait while fetching the data..",
                                   style: CustomStyle.style,
@@ -103,9 +103,9 @@ class CategoryView extends GetView<CategoryController> {
                       : Obx(() => Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Row(
+                              const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
+                                children: [
                                   Text(
                                     "oops!! server unreachable..Click to retry...",
                                     style: CustomStyle.style,

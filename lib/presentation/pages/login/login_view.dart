@@ -22,10 +22,10 @@ class LoginScreen extends GetView<LoginController> {
         () => controller.isLoading.value
             ? SizedBox(
                 height: size.height,
-                child: Center(
+                child: const Center(
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children: [
                       Text("Please wait while connecting to Google"),
                       SizedBox(
                         height: 50,
